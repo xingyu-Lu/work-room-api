@@ -3,19 +3,11 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Menu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class AdminsController extends Controller
+class MenusController extends Controller
 {
-    public function info()
-    {
-        $user = auth('api')->user();
-
-        return responder()->success($user);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,10 +15,42 @@ class AdminsController extends Controller
      */
     public function index()
     {
-        $admins = Admin::where('status', Admin::STATUS_1)->get();
+        $menus = Menu::where('is_enabled', Menu::IS_ENABLED_1)->get();
 
-        return responder()->success($admins);
+        return responder()->success($menus);
     }
+
+    public function getTree($menus, $pid = 0, $list = [])
+    {
+        $list = [];
+
+        foreach ($menus as $key => $value) {
+            if ($value['pid'] != $pid) {
+                continue;
+            }
+
+            if ($value['pid'] != 0) {
+                $p_menu = Menu::find($value['pid']);
+                $p_name = $p_menu->name;
+            } else {
+                $p_name = '无';
+            }
+
+            $list[$key]['id'] = $value['id'];
+            $list[$key]['pid'] = $value['pid'];
+            $list[$key]['name'] = $value['name'];
+            $list[$key]['p_name'] = $p_name;
+            $list[$key]['url'] = $value['url'];
+            $list[$key]['icon'] = $value['icon'];
+            $list[$key]['created_at'] = $value['created_at'];
+
+            unset($menus[$key]);
+
+            $list[$key]['sub'] = $this->getTree($menus, $value['id'], $list);
+        }
+
+        return array_values($list);
+    }    
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +60,7 @@ class AdminsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

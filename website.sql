@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `syy_admins`;
 CREATE TABLE `syy_admins` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '管理员账号',
@@ -10,6 +11,28 @@ CREATE TABLE `syy_admins` (
 
 INSERT INTO `syy_admins` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, 1642750967, 1642750967);
 
+DROP TABLE IF EXISTS `syy_menus`;
+CREATE TABLE `syy_menus` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父级id',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '菜单名称',
+  `url` varchar(300) NOT NULL DEFAULT '' COMMENT '前端路由',
+  `icon` varchar(300) NOT NULL DEFAULT '' COMMENT 'icon',
+  `is_enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用 0：不启用 1：启用',
+  `created_at` int(20) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(20) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单表';
+
+DROP TABLE IF EXISTS `syy_role_has_menus`;
+CREATE TABLE `syy_role_has_menus` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL DEFAULT '0' COMMENT '角色id',
+  `menu_id` int(11) NOT NULL DEFAULT '0' COMMENT '菜单id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色菜单表';
+
+DROP TABLE IF EXISTS `syy_upload_file`;
 CREATE TABLE `syy_upload_file` (
   `file_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件id',
   `storage` tinyint(1) NOT NULL DEFAULT 0 COMMENT '存储方式 0：本地',
@@ -25,6 +48,7 @@ CREATE TABLE `syy_upload_file` (
   UNIQUE KEY `path_idx` (`file_name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10566 DEFAULT CHARSET=utf8 COMMENT='文件库记录表';
 
+DROP TABLE IF EXISTS `syy_staffs`;
 CREATE TABLE `syy_staffs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `name` varchar(10) NOT NULL DEFAULT '' COMMENT '姓名',
@@ -37,6 +61,7 @@ CREATE TABLE `syy_staffs` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='员工表';
 
+DROP TABLE IF EXISTS `syy_staff_articles`;
 CREATE TABLE `syy_staff_articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `staff_id` int(11) unsigned NOT NULL default 0 COMMENT '员工id',
@@ -50,6 +75,7 @@ CREATE TABLE `syy_staff_articles` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='员工文章表';
 
+DROP TABLE IF EXISTS `syy_briefs`;
 CREATE TABLE `syy_briefs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `content` text not null comment '文章内容',
@@ -59,6 +85,7 @@ CREATE TABLE `syy_briefs` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='医院简介';
 
+DROP TABLE IF EXISTS `syy_leaders`;
 CREATE TABLE `syy_leaders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `file_id` int(11) unsigned NOT NULL default 0 COMMENT '文件id',
@@ -71,6 +98,7 @@ CREATE TABLE `syy_leaders` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='领导团队';
 
+DROP TABLE IF EXISTS `syy_cultures`;
 CREATE TABLE `syy_cultures` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `content` text not null comment '文章内容',
@@ -80,6 +108,7 @@ CREATE TABLE `syy_cultures` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='医院文化';
 
+DROP TABLE IF EXISTS `syy_historys`;
 CREATE TABLE `syy_historys` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL COMMENT '标题',
@@ -90,6 +119,7 @@ CREATE TABLE `syy_historys` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='历史沿革';
 
+DROP TABLE IF EXISTS `syy_organizations`;
 CREATE TABLE `syy_organizations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `file_id` int(1) not null default 0 comment 'file_id',
@@ -99,6 +129,7 @@ CREATE TABLE `syy_organizations` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='组织机构';
 
+DROP TABLE IF EXISTS `syy_honors`;
 CREATE TABLE `syy_honors` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `content` text not null comment '内容',
@@ -108,6 +139,7 @@ CREATE TABLE `syy_honors` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='医院荣誉';
 
+DROP TABLE IF EXISTS `syy_futures`;
 CREATE TABLE `syy_futures` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `content` text not null comment '内容',
