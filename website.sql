@@ -19,6 +19,7 @@ CREATE TABLE `syy_menus` (
   `url` varchar(300) NOT NULL DEFAULT '' COMMENT '前端路由',
   `icon` varchar(300) NOT NULL DEFAULT '' COMMENT 'icon',
   `is_enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用 0：不启用 1：启用',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
   `created_at` int(20) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(20) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)

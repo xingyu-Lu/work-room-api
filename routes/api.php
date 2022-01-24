@@ -31,7 +31,28 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         // 登录用户信息
         Route::get('admins/info', 'AdminsController@info')->name('admins.info');
 
+        // 管理员
+        Route::put('admins/status', 'AdminsController@status')->name('admins.status');
+        Route::apiResource('admins', 'AdminsController');
+
         // 菜单
         Route::apiResource('menus', 'MenusController');
+    });
+});
+
+
+Route::namespace('Api\Head')->prefix('head')->group(function () {
+    // 获取 token
+    // Route::post('authorizations', 'AuthorizationsController@store')->name('login');
+    
+    // 轮播图
+    Route::name('api.head.')->name('api.head.')->group(function () {
+        Route::get('rotates', 'RotatesController@index')->name('rotates.index');
+    });
+
+    // 需要 token 验证的接口
+    Route::middleware(['auth:api'])->name('api.head.')->group(function () {
+        // 登录用户信息
+        Route::get('admins/info', 'AdminsController@info')->name('admins.info');
     });
 });

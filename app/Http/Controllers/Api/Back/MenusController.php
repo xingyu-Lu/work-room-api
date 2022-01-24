@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\Back;
 
+use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MenusController extends Controller
 {
@@ -60,7 +62,11 @@ class MenusController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $params = $request->all();
+
+        Menu::create($params);
+
+        return responder()->success();
     }
 
     /**
@@ -71,7 +77,13 @@ class MenusController extends Controller
      */
     public function show($id)
     {
-        //
+        $menu = Menu::find($id);
+
+        if (empty($menu)) {
+            throw new BaseException(['msg' => '菜单不存在']);
+        }
+
+        return responder()->success($menu);
     }
 
     /**
@@ -83,7 +95,11 @@ class MenusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $menu = Menu::find($id);
+
+        Menu::updateOrCreate(['id' => $id], $params);
+
+        return responder()->success();
     }
 
     /**
@@ -94,6 +110,40 @@ class MenusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $menu = Menu::find($id);
+
+        if (empty($menu)) {
+            throw new BaseException(['msg' => '菜单不存在']);
+        }
+
+        $menu_id = $this->getChildMenu($id);
+
+        array_push($menu_id, (int)$id);
+
+        //删除关联
+        DB::table('role_has_menus')->whereIn('menu_id', $menu_id)->delete();
+
+        Menu::whereIn('id', $menu_id)->delete();
+
+        return responder()->success();
+    }
+
+    public function getChildMenu($pid, $menus = [])
+    {
+        static $list = [];
+
+        if (empty($menus)) {
+            $menus = Menu::get();
+        }
+
+        foreach ($menus as $key => $value) {
+            if ($value['pid'] == $pid) {
+                $list[] = $value['id'];
+                unset($menus[$key]);
+                $this->getChildmenu($value['id'], $menus);
+            }
+        }
+
+        return $list;
     }
 }

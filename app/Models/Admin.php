@@ -28,6 +28,9 @@ class Admin extends Authenticatable implements JWTSubject
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    //均可批量赋值
+    protected $guarded = [];
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
