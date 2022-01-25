@@ -16,7 +16,7 @@ class Admin extends Authenticatable implements JWTSubject
     const STATUS_0 = 0;//禁用
     const STATUS_1 = 1;//启用
 
-    // use HasFactory;
+    use HasFactory;
     protected $table = 'admins';
 
     protected $guard_name = 'api';

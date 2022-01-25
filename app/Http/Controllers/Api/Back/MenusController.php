@@ -22,6 +22,15 @@ class MenusController extends Controller
         return responder()->success($menus);
     }
 
+    public function list()
+    {
+        $menus = Menu::where('is_enabled', Menu::IS_ENABLED_1)->get();
+
+        $menus = $this->getTree($menus);
+
+        return responder()->success($menus);
+    }
+
     public function getTree($menus, $pid = 0, $list = [])
     {
         $list = [];
@@ -44,6 +53,7 @@ class MenusController extends Controller
             $list[$key]['p_name'] = $p_name;
             $list[$key]['url'] = $value['url'];
             $list[$key]['icon'] = $value['icon'];
+            $list[$key]['sort'] = $value['sort'];
             $list[$key]['created_at'] = $value['created_at'];
 
             unset($menus[$key]);
@@ -63,6 +73,8 @@ class MenusController extends Controller
     public function store(Request $request)
     {
         $params = $request->all();
+
+        $params['url'] = $params['url'] ?? '';
 
         Menu::create($params);
 
@@ -95,6 +107,10 @@ class MenusController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $params = $request->all();
+
+        $params['url'] = $params['url'] ?? '';
+
         $menu = Menu::find($id);
 
         Menu::updateOrCreate(['id' => $id], $params);
@@ -145,5 +161,17 @@ class MenusController extends Controller
         }
 
         return $list;
+    }
+
+    public function status(Request $request)
+    {
+        $params = $request->all();
+
+        $id = $params['id'];
+        $is_enabled = $params['is_enabled'];
+
+        Menu::updateOrCreate(['id' => $id], ['is_enabled' => $is_enabled]);
+
+        return responder()->success();
     }
 }

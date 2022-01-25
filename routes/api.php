@@ -32,11 +32,30 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::get('admins/info', 'AdminsController@info')->name('admins.info');
 
         // 管理员
+        Route::put('admins/changepwd', 'AdminsController@changepwd')->name('admins.changepwd');
         Route::put('admins/status', 'AdminsController@status')->name('admins.status');
         Route::apiResource('admins', 'AdminsController');
 
         // 菜单
+        Route::put('menus/status', 'MenusController@status')->name('menus.status');
+        Route::get('menus/list', 'MenusController@list')->name('menus.list');
         Route::apiResource('menus', 'MenusController');
+
+        // 轮播图
+        Route::put('rotates/status', 'RotatesController@status')->name('rotates.status');
+        Route::get('rotates/srclist', 'RotatesController@srclist')->name('rotates.srclist');
+        Route::apiResource('rotates', 'RotatesController');
+
+        // 医院简介
+        Route::apiResource('briefs', 'BriefsController');        
+
+        //文件下载
+        Route::get('files/down', 'FilesController@down')->name('files.down');
+        //文件上传
+        Route::post('files/upload', 'FilesController@upload')->name('files.upload');
+        //文件上传(多)
+        Route::post('files/uploads', 'FilesController@uploads')->name('files.uploads');
+
     });
 });
 

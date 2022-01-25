@@ -11,6 +11,17 @@ CREATE TABLE `syy_admins` (
 
 INSERT INTO `syy_admins` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, 1642750967, 1642750967);
 
+DROP TABLE IF EXISTS `syy_rotates`;
+CREATE TABLE `syy_rotates` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `file_id` int(11) unsigned NOT NULL default 0 COMMENT '文件id',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用 0：不启用 1：启用',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  `created_at` int(20) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(20) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单表';
+
 DROP TABLE IF EXISTS `syy_menus`;
 CREATE TABLE `syy_menus` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -33,9 +44,9 @@ CREATE TABLE `syy_role_has_menus` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色菜单表';
 
-DROP TABLE IF EXISTS `syy_upload_file`;
-CREATE TABLE `syy_upload_file` (
-  `file_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件id',
+DROP TABLE IF EXISTS `syy_upload_files`;
+CREATE TABLE `syy_upload_files` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件id',
   `storage` tinyint(1) NOT NULL DEFAULT 0 COMMENT '存储方式 0：本地',
   `file_url` varchar(255) NOT NULL DEFAULT '' COMMENT '存储路径',
   `file_name` varchar(255) NOT NULL DEFAULT '' COMMENT '文件名',
@@ -45,8 +56,7 @@ CREATE TABLE `syy_upload_file` (
   `extension` varchar(20) NOT NULL DEFAULT '' COMMENT '文件扩展名',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) unsigned DEFAULT '0' COMMENT '更新时间',
-  PRIMARY KEY (`file_id`),
-  UNIQUE KEY `path_idx` (`file_name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10566 DEFAULT CHARSET=utf8 COMMENT='文件库记录表';
 
 DROP TABLE IF EXISTS `syy_staffs`;

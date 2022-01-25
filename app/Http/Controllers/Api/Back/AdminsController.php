@@ -107,4 +107,25 @@ class AdminsController extends Controller
 
         return responder()->success();
     }
+
+    public function changepwd(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $params = $request->all();
+
+        $old_pwd = $params['old_password'];
+
+        $new_pwd = $params['new_password'];
+
+        if (md5($old_pwd) != $user['password']) {
+            throw new BaseException(['msg' => '原密码错误']);
+        }
+
+        $user->password = md5($new_pwd);
+
+        $user->save();
+
+        return responder()->success();
+    }
 }
