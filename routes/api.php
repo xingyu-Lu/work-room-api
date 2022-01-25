@@ -47,6 +47,7 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('rotates', 'RotatesController');
 
         // 医院简介
+        Route::put('briefs/status', 'BriefsController@status')->name('briefs.status');
         Route::apiResource('briefs', 'BriefsController');        
 
         //文件下载

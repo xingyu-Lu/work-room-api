@@ -59,6 +59,8 @@ class BriefsController extends Controller
     {
         $params = $request->all();
 
+        $params['status'] = 0;
+
         Brief::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();
@@ -73,5 +75,17 @@ class BriefsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function status(Request $request)
+    {
+        $params = $request->all();
+
+        $id = $params['id'];
+        $status = 1;
+
+        Brief::updateOrCreate(['id' => $id], ['status' => $status]);
+
+        return responder()->success();
     }
 }
