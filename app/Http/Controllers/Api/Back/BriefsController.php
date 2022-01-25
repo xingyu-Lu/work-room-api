@@ -57,7 +57,11 @@ class BriefsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $request->all();
+
+        Brief::updateOrCreate(['id' => $id], $params);
+
+        return responder()->success();
     }
 
     /**
