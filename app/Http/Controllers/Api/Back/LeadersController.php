@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rotate;
+use App\Models\Leader;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class RotatesController extends Controller
+class LeadersController extends Controller
 {
     public function srclist(Request $request)
     {
-        $rotates = Rotate::get();
-
-        $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
+        $rotates = Leader::orderBy('sort', 'asc')->get();
 
         $img_arr = [];
 
         foreach ($rotates as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = $pre_path . Storage::url($file['file_url']);
+            $url = Storage::disk('public')->url($file['file_url']);
 
             $img_arr[] = $url;
         }
@@ -33,19 +31,17 @@ class RotatesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $rotates = Rotate::orderBy('sort', 'asc')->get();
+        $leaders = Leader::orderBy('sort', 'asc')->get();
 
-        $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
-
-        foreach ($rotates as $key => $value) {
+        foreach ($leaders as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = $pre_path . Storage::url($file['file_url']);
+            $url = Storage::disk('public')->url($file['file_url']);
             $value['url'] = $url;
         }
 
-        return responder()->success($rotates);
+        return responder()->success($leaders);
     }
 
     /**
@@ -61,7 +57,7 @@ class RotatesController extends Controller
         $params['file_id'] = $params['img'];
         unset($params['img']);
 
-        Rotate::create($params);
+        Leader::create($params);
 
         return responder()->success();
     }
@@ -74,7 +70,15 @@ class RotatesController extends Controller
      */
     public function show($id)
     {
-        
+        $leader = Leader::find($id);
+
+        $file = UploadFile::find($leader['file_id']);
+
+        $url = Storage::disk('public')->url($file['file_url']);
+
+        $leader->url = $url;
+
+        return responder()->success($leader);
     }
 
     /**
@@ -86,7 +90,14 @@ class RotatesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $request->all();
+
+        $params['file_id'] = $params['img'];
+        unset($params['img']);
+
+        Leader::updateOrCreate(['id' => $id], $params);
+
+        return responder()->success();
     }
 
     /**
@@ -97,7 +108,7 @@ class RotatesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 
     public function status(Request $request)
@@ -107,7 +118,7 @@ class RotatesController extends Controller
         $id = $params['id'];
         $status = $params['status'];
 
-        Rotate::updateOrCreate(['id' => $id], ['status' => $status]);
+        Leader::updateOrCreate(['id' => $id], ['status' => $status]);
 
         return responder()->success();
     }

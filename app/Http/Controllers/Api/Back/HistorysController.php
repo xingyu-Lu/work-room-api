@@ -3,49 +3,21 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rotate;
-use App\Models\UploadFile;
+use App\Models\History;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-class RotatesController extends Controller
+class HistorysController extends Controller
 {
-    public function srclist(Request $request)
-    {
-        $rotates = Rotate::get();
-
-        $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
-
-        $img_arr = [];
-
-        foreach ($rotates as $key => $value) {
-            $file = UploadFile::find($value['file_id']);
-            $url = $pre_path . Storage::url($file['file_url']);
-
-            $img_arr[] = $url;
-        }
-
-        return responder()->success($img_arr);
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $rotates = Rotate::orderBy('sort', 'asc')->get();
+        $history = History::first();
 
-        $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
-
-        foreach ($rotates as $key => $value) {
-            $file = UploadFile::find($value['file_id']);
-            $url = $pre_path . Storage::url($file['file_url']);
-            $value['url'] = $url;
-        }
-
-        return responder()->success($rotates);
+        return responder()->success($history);
     }
 
     /**
@@ -58,10 +30,7 @@ class RotatesController extends Controller
     {
         $params = $request->all();
 
-        $params['file_id'] = $params['img'];
-        unset($params['img']);
-
-        Rotate::create($params);
+        History::create($params);
 
         return responder()->success();
     }
@@ -74,7 +43,9 @@ class RotatesController extends Controller
      */
     public function show($id)
     {
-        
+        $history = History::find($id);
+
+        return responder()->success($history);
     }
 
     /**
@@ -86,7 +57,13 @@ class RotatesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $request->all();
+
+        $params['status'] = 0;
+
+        History::updateOrCreate(['id' => $id], $params);
+
+        return responder()->success();
     }
 
     /**
@@ -105,9 +82,9 @@ class RotatesController extends Controller
         $params = $request->all();
 
         $id = $params['id'];
-        $status = $params['status'];
+        $status = 1;
 
-        Rotate::updateOrCreate(['id' => $id], ['status' => $status]);
+        History::updateOrCreate(['id' => $id], ['status' => $status]);
 
         return responder()->success();
     }

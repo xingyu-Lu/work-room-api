@@ -57,7 +57,7 @@ CREATE TABLE `syy_upload_files` (
   `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) unsigned DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10566 DEFAULT CHARSET=utf8 COMMENT='文件库记录表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文件库记录表';
 
 DROP TABLE IF EXISTS `syy_staffs`;
 CREATE TABLE `syy_staffs` (
@@ -102,6 +102,7 @@ CREATE TABLE `syy_leaders` (
   `file_id` int(11) unsigned NOT NULL default 0 COMMENT '文件id',
   `name` varchar(20) not null default '' comment '姓名',
   `position` varchar(100) NOT NULL DEFAULT '' COMMENT '职务',
+  `professional` varchar(100) NOT NULL DEFAULT '' COMMENT '职称',
   `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -122,18 +123,42 @@ CREATE TABLE `syy_cultures` (
 DROP TABLE IF EXISTS `syy_historys`;
 CREATE TABLE `syy_historys` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL COMMENT '标题',
-  `content` varchar(300) not null comment '内容',
+  `content` text not null comment '内容',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='历史沿革';
 
+DROP TABLE IF EXISTS `syy_history_leaders`;
+CREATE TABLE `syy_history_leaders` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `file_id` int(11) unsigned NOT NULL default 0 COMMENT '文件id',
+  `name` varchar(20) not null default '' comment '姓名',
+  `time` varchar(20) not null default '' comment '在任时间',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='历任院长';
+
+DROP TABLE IF EXISTS `syy_history_pics`;
+CREATE TABLE `syy_history_pics` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `file_id` int(11) unsigned NOT NULL default 0 COMMENT '文件id',
+  `title` varchar(20) not null default '' comment '抬头',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='历史照片';
+
 DROP TABLE IF EXISTS `syy_organizations`;
 CREATE TABLE `syy_organizations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `file_id` int(1) not null default 0 comment 'file_id',
+  `content` text not null comment '内容',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',

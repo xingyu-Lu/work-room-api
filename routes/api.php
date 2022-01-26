@@ -48,7 +48,34 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 医院简介
         Route::put('briefs/status', 'BriefsController@status')->name('briefs.status');
-        Route::apiResource('briefs', 'BriefsController');        
+        Route::apiResource('briefs', 'BriefsController');
+
+        // 领导团队
+        Route::put('leaders/status', 'LeadersController@status')->name('leaders.status');
+        Route::get('leaders/srclist', 'LeadersController@srclist')->name('leaders.srclist');
+        Route::apiResource('leaders', 'LeadersController');
+
+        // 医院文化
+        Route::put('cultures/status', 'CulturesController@status')->name('cultures.status');
+        Route::apiResource('cultures', 'CulturesController');
+
+        // 历史沿革
+        Route::put('historys/status', 'HistorysController@status')->name('historys.status');
+        Route::apiResource('historys', 'HistorysController');
+
+        // 历任院长
+        Route::put('historyLeaders/status', 'historyLeadersController@status')->name('historyLeaders.status');
+        Route::get('historyLeaders/srclist', 'historyLeadersController@srclist')->name('historyLeaders.srclist');
+        Route::apiResource('historyLeaders', 'historyLeadersController');
+
+        // 历任院长
+        Route::put('historyPics/status', 'historyPicsController@status')->name('historyPics.status');
+        Route::get('historyPics/srclist', 'historyPicsController@srclist')->name('historyPics.srclist');
+        Route::apiResource('historyPics', 'historyPicsController');
+
+        // 组织机构
+        Route::put('organizations/status', 'OrganizationsController@status')->name('organizations.status');
+        Route::apiResource('organizations', 'OrganizationsController');
 
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
