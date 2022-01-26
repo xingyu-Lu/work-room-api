@@ -64,14 +64,14 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('historys', 'HistorysController');
 
         // 历任院长
-        Route::put('historyLeaders/status', 'historyLeadersController@status')->name('historyLeaders.status');
-        Route::get('historyLeaders/srclist', 'historyLeadersController@srclist')->name('historyLeaders.srclist');
-        Route::apiResource('historyLeaders', 'historyLeadersController');
+        Route::put('historyLeaders/status', 'HistoryLeadersController@status')->name('historyLeaders.status');
+        Route::get('historyLeaders/srclist', 'HistoryLeadersController@srclist')->name('historyLeaders.srclist');
+        Route::apiResource('historyLeaders', 'HistoryLeadersController');
 
         // 历任院长
-        Route::put('historyPics/status', 'historyPicsController@status')->name('historyPics.status');
-        Route::get('historyPics/srclist', 'historyPicsController@srclist')->name('historyPics.srclist');
-        Route::apiResource('historyPics', 'historyPicsController');
+        Route::put('historyPics/status', 'HistoryPicsController@status')->name('historyPics.status');
+        Route::get('historyPics/srclist', 'HistoryPicsController@srclist')->name('historyPics.srclist');
+        Route::apiResource('historyPics', 'HistoryPicsController');
 
         // 组织机构
         Route::put('organizations/status', 'OrganizationsController@status')->name('organizations.status');
