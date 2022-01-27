@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api\Head;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rotate;
+use App\Models\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RotatesController extends Controller
 {
@@ -14,24 +17,18 @@ class RotatesController extends Controller
      */
     public function index(Request $request)
     {
-        // var_dump($request->server());exit;
-        $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST') . "/storage/img/";
-        $imgs = [
-            [
-                'url' => $pre_path. "lunbo1.png",
-            ],
-            [
-                'url' => $pre_path. "lunbo2.png",
-            ],
-            [
-                'url' => $pre_path. "lunbo3.png",
-            ],
-            [
-                'url' => $pre_path. "lunbo4.png",
-            ],
-        ];
+        $rotates = Rotate::where('status', Rotate::STATUS_1)->orderBy('sort', 'asc')->get();
 
-        return responder()->success($imgs);
+        foreach ($rotates as $key => $value) {
+            $file = UploadFile::find($value['file_id']);
+            $url = '';
+            if ($file) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            }
+            $value['url'] = $url;
+        }
+
+        return responder()->success($rotates);
     }
 
     /**
