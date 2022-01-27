@@ -185,4 +185,17 @@ CREATE TABLE `syy_futures` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='未来展望';
 
-
+DROP TABLE IF EXISTS `syy_news`;
+CREATE TABLE `syy_news` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
+  `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '新闻封面图id',
+  `content` text not null comment '内容',
+  `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
+  `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: 医院新闻 1：医院公告 2：视频新闻',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='新闻';

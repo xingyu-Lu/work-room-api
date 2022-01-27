@@ -77,6 +77,10 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::put('organizations/status', 'OrganizationsController@status')->name('organizations.status');
         Route::apiResource('organizations', 'OrganizationsController');
 
+        // 历任院长
+        Route::put('news/status', 'NewsController@status')->name('news.status');
+        Route::apiResource('news', 'NewsController');
+
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
         //文件上传
