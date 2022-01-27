@@ -68,7 +68,7 @@ class NewsController extends Controller
 
         $url = '';
 
-        if ($file['file_url']) {
+        if ($file) {
             $url = Storage::disk('public')->url($file['file_url']);
         }
 
