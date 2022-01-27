@@ -38,8 +38,10 @@ class NewsController extends Controller
     {
         $params = $request->all();
 
-        $params['file_id'] = $params['img'];
-        unset($params['img']);
+        if ($params['img']) {
+            $params['file_id'] = $params['img'];
+            unset($params['img']);   
+        }
 
         $params['release_time'] = strtotime($params['release_time']);
 
@@ -78,8 +80,10 @@ class NewsController extends Controller
     {
         $params = $request->all();
 
-        $params['file_id'] = $params['img'];
-        unset($params['img']);
+        if ($params['img']) {
+            $params['file_id'] = $params['img'];
+            unset($params['img']);   
+        }
 
         $params['release_time'] = strtotime($params['release_time']);
 
