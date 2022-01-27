@@ -22,7 +22,7 @@ class NewsController extends Controller
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
-            if ($file['file_url']) {
+            if ($file) {
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['url'] = $url;
