@@ -21,7 +21,10 @@ class NewsController extends Controller
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = Storage::disk('public')->url($file['file_url']);
+            $url = '';
+            if ($file['file_url']) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            }
             $value['url'] = $url;
         }
 
@@ -63,7 +66,11 @@ class NewsController extends Controller
 
         $file = UploadFile::find($news['file_id']);
 
-        $url = Storage::disk('public')->url($file['file_url']);
+        $url = '';
+
+        if ($file['file_url']) {
+            $url = Storage::disk('public')->url($file['file_url']);
+        }
 
         $news->url = $url;
 
