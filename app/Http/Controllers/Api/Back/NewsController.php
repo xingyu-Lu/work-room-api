@@ -45,7 +45,11 @@ class NewsController extends Controller
             $params['file_id'] = $params['img'];
         }
 
-        unset($params['img']);
+        if ($params['attachment']) {
+            $params['attachment_id'] = $params['attachment'];
+        }
+
+        unset($params['img'], $params['attachment']);
 
         $params['release_time'] = strtotime($params['release_time']);
 
@@ -63,6 +67,21 @@ class NewsController extends Controller
     public function show($id)
     {
         $news = News::find($id);
+
+        $attachment_ids = explode(',', $news['attachment_id']);
+        $attachment = [];
+
+        foreach ($attachment_ids as $key => $value) {
+            $file = UploadFile::find($value);
+            if ($file) {
+                $attachment[] = [
+                    'name' => Storage::disk('public')->url($file['file_url']),
+                    'url' => Storage::disk('public')->url($file['file_url'])
+                ];
+            }
+        }
+
+        $news->attachment = $attachment;
 
         $file = UploadFile::find($news['file_id']);
 
@@ -92,7 +111,11 @@ class NewsController extends Controller
             $params['file_id'] = $params['img'];
         }
 
-        unset($params['img']);
+        if ($params['attachment']) {
+            $params['attachment_id'] = $params['attachment'];
+        }
+
+        unset($params['img'], $params['attachment']);
 
         $params['release_time'] = strtotime($params['release_time']);
 

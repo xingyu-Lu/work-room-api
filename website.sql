@@ -51,11 +51,12 @@ CREATE TABLE `syy_upload_files` (
   `file_url` varchar(255) NOT NULL DEFAULT '' COMMENT '存储路径',
   `file_name` varchar(255) NOT NULL DEFAULT '' COMMENT '文件名',
   `file_size` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小(字节)',
-  `file_type` varchar(20) NOT NULL DEFAULT '' COMMENT '文件类型',
-  `real_name` varchar(255) DEFAULT '' COMMENT '文件真实名',
+  `file_size_m` varchar(100) NOT NULL DEFAULT '' COMMENT '文件大小(兆)',
+  `file_type` varchar(200) NOT NULL DEFAULT '' COMMENT '文件类型',
+  `real_name` varchar(255) NOT NULL DEFAULT '' COMMENT '文件真实名',
   `extension` varchar(20) NOT NULL DEFAULT '' COMMENT '文件扩展名',
   `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `updated_at` int(11) unsigned DEFAULT '0' COMMENT '更新时间',
+  `updated_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文件库记录表';
 
@@ -190,6 +191,7 @@ CREATE TABLE `syy_news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
   `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '新闻封面图id',
+  `attachment_id` varchar(20) unsigned NOT NULL DEFAULT 0 COMMENT '附件id',
   `content` text not null comment '内容',
   `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
   `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',

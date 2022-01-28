@@ -46,6 +46,7 @@ class FilesController extends Controller
             'file_url' => $path,
             'file_name' => $file->getClientOriginalName(),
             'file_size' => $file->getSize(),
+            'file_size_m' => round($file->getSize()/1024/1024, 2) . 'M',
             'file_type' => $file->getMimeType(),
             'real_name' => $file->getClientOriginalName(),
             'extension' => $file->extension(),
