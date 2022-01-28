@@ -201,3 +201,29 @@ CREATE TABLE `syy_news` (
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='新闻';
+
+DROP TABLE IF EXISTS `syy_technical_offices`;
+CREATE TABLE `syy_technical_offices` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
+  `address` varchar(100) NOT NULL DEFAULT '' COMMENT '科室地址',
+  `phone` varchar(50) NOT NULL DEFAULT '' COMMENT '科室电话',
+  `index` varchar(10) NOT NULL DEFAULT '' COMMENT '科室索引',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='医院科室';
+
+DROP TABLE IF EXISTS `syy_technical_office_introduces`;
+CREATE TABLE `syy_technical_office_introduces` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int(11) unsigned NOT NULL default 0 COMMENT '科室id',
+  `office_name` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
+  `content` text NOT NULL COMMENT '内容',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室介绍';

@@ -81,6 +81,14 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::put('news/status', 'NewsController@status')->name('news.status');
         Route::apiResource('news', 'NewsController');
 
+        // 科室列表
+        Route::put('technicalOffices/status', 'TechnicalOfficesController@status')->name('technicalOffices.status');
+        Route::apiResource('technicalOffices', 'TechnicalOfficesController');        
+
+        // 科室介绍
+        Route::put('technicalOfficeIntroduces/status', 'TechnicalOfficeIntroduceController@status')->name('technicalOfficeIntroduces.status');
+        Route::apiResource('technicalOfficeIntroduces', 'TechnicalOfficeIntroduceController');        
+
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
         //文件上传
