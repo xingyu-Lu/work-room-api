@@ -16,7 +16,7 @@ class TechnicalOfficesController extends Controller
      */
     public function index()
     {
-        $offices = TechnicalOffice::orderBy('sort', 'asc')->paginate(10);
+        $offices = TechnicalOffice::orderBy('sort', 'asc')->paginate(100);
 
         return responder()->success($offices);
     }

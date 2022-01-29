@@ -87,7 +87,15 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 科室介绍
         Route::put('technicalOfficeIntroduces/status', 'TechnicalOfficeIntroduceController@status')->name('technicalOfficeIntroduces.status');
-        Route::apiResource('technicalOfficeIntroduces', 'TechnicalOfficeIntroduceController');        
+        Route::apiResource('technicalOfficeIntroduces', 'TechnicalOfficeIntroduceController');
+
+        // 科室动态
+        Route::put('technicalOfficeDynamics/status', 'TechnicalOfficeDynamicsController@status')->name('technicalOfficeDynamics.status');
+        Route::apiResource('technicalOfficeDynamics', 'TechnicalOfficeDynamicsController'); 
+
+        // 科室医生
+        Route::put('technicalOfficeDoctors/status', 'TechnicalOfficeDoctorsController@status')->name('technicalOfficeDoctors.status');
+        Route::apiResource('technicalOfficeDoctors', 'TechnicalOfficeDoctorsController');        
 
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
