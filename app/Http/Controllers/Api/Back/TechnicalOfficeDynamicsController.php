@@ -17,9 +17,17 @@ class TechnicalOfficeDynamicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $news = TechnicalOfficeDynamic::orderBy('id', 'desc')->paginate(10);
+        $params = $request->all();
+
+        $where = [];
+
+        if ($params['office_name']) {
+            $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
+        }
+
+        $news = TechnicalOfficeDynamic::where($where)->orderBy('id', 'desc')->paginate(10);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);

@@ -95,7 +95,23 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 科室医生
         Route::put('technicalOfficeDoctors/status', 'TechnicalOfficeDoctorsController@status')->name('technicalOfficeDoctors.status');
-        Route::apiResource('technicalOfficeDoctors', 'TechnicalOfficeDoctorsController');        
+        Route::apiResource('technicalOfficeDoctors', 'TechnicalOfficeDoctorsController');
+
+        // 科室门诊
+        Route::put('technicalOfficeOutpatients/status', 'TechnicalOfficeOutpatientsController@status')->name('technicalOfficeOutpatients.status');
+        Route::apiResource('technicalOfficeOutpatients', 'TechnicalOfficeOutpatientsController');        
+
+        // 科室特色医疗
+        Route::put('technicalOfficeFeatures/status', 'TechnicalOfficeFeaturesController@status')->name('technicalOfficeFeatures.status');
+        Route::apiResource('technicalOfficeFeatures', 'TechnicalOfficeFeaturesController');
+
+        // 科室图片
+        Route::put('technicalOfficePics/status', 'TechnicalOfficePicsController@status')->name('technicalOfficePics.status');
+        Route::apiResource('technicalOfficePics', 'TechnicalOfficePicsController');
+
+        // 科室健康科普
+        Route::put('technicalOfficeHealthSciences/status', 'TechnicalOfficeHealthSciencesController@status')->name('technicalOfficeHealthSciences.status');
+        Route::apiResource('technicalOfficeHealthSciences', 'TechnicalOfficeHealthSciencesController');
 
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');

@@ -14,9 +14,17 @@ class TechnicalOfficesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $offices = TechnicalOffice::orderBy('sort', 'asc')->paginate(100);
+        $params = $request->all();
+
+        $where = [];
+
+        if (isset($params['office_name']) && $params['office_name']) {
+            $where[] = ['name', 'like', '%' . $params['office_name'] . '%'];
+        }
+
+        $offices = TechnicalOffice::where($where)->orderBy('sort', 'asc')->paginate(100);
 
         return responder()->success($offices);
     }

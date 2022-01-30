@@ -274,10 +274,54 @@ CREATE TABLE `syy_technical_office_outpatients` (
   `saturday` varchar(50) NOT NULL DEFAULT '' COMMENT '周六门诊医生',
   `sunday` varchar(50) NOT NULL DEFAULT '' COMMENT '周日门诊医生',
   `type` tinyint(10) unsigned NOT NULL DEFAULT 0 COMMENT '0:上午 1：下午',
+  `yq_type` tinyint(10) unsigned NOT NULL DEFAULT 0 COMMENT '0:院本部 1：李庄院区',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见；2：删除',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室门诊';
 
+DROP TABLE IF EXISTS `syy_technical_office_features`;
+CREATE TABLE `syy_technical_office_features` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int(11) unsigned NOT NULL default 0 COMMENT '科室id',
+  `office_name` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
+  `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '封面图id',
+  `content` text not null comment '内容',
+  `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
+  `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见；2：删除',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室特色医疗';
 
+DROP TABLE IF EXISTS `syy_technical_office_pics`;
+CREATE TABLE `syy_technical_office_pics` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int(11) unsigned NOT NULL default 0 COMMENT '科室id',
+  `office_name` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
+  `file_id` int(11) unsigned NOT NULL default 0 COMMENT '文件id',
+  `title` varchar(20) not null default '' comment '抬头',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室图片';
+
+DROP TABLE IF EXISTS `syy_technical_office_health_sciences`;
+CREATE TABLE `syy_technical_office_health_sciences` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int(11) unsigned NOT NULL default 0 COMMENT '科室id',
+  `office_name` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
+  `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '封面图id',
+  `content` text not null comment '内容',
+  `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
+  `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见；2：删除',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室健康科普';

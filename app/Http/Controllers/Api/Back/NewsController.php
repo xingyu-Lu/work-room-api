@@ -15,9 +15,17 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::orderBy('id', 'desc')->paginate(10);
+        $params = $request->all();
+
+        $where = [];
+
+        if ($params['title']) {
+            $where[] = ['title', 'like', '%' . $params['title'] . '%'];
+        }
+
+        $news = News::where($where)->orderBy('id', 'desc')->paginate(10);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);

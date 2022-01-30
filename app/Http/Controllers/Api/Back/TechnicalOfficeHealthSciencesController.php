@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\TechnicalOffice;
-use App\Models\TechnicalOfficeDoctor;
+use App\Models\TechnicalOfficeHealthScience;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class TechnicalOfficeDoctorsController extends Controller
+class TechnicalOfficeHealthSciencesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class TechnicalOfficeDoctorsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $news = TechnicalOfficeDoctor::where($where)->orderBy('id', 'desc')->paginate(10);
+        $news = TechnicalOfficeHealthScience::where($where)->orderBy('id', 'desc')->paginate(10);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
@@ -56,13 +56,15 @@ class TechnicalOfficeDoctorsController extends Controller
 
         unset($params['img']);
 
+        $params['release_time'] = strtotime($params['release_time']);
+
         $office_id = $params['office_id'];
 
         $office = TechnicalOffice::where('id', $office_id)->first();
 
         $params['office_name'] = $office['name'];
 
-        TechnicalOfficeDoctor::create($params);
+        TechnicalOfficeHealthScience::create($params);
 
         return responder()->success();
     }
@@ -75,9 +77,9 @@ class TechnicalOfficeDoctorsController extends Controller
      */
     public function show($id)
     {
-        $doctor = TechnicalOfficeDoctor::find($id);
+        $dynamic = TechnicalOfficeHealthScience::find($id);
 
-        $file = UploadFile::find($doctor['file_id']);
+        $file = UploadFile::find($dynamic['file_id']);
 
         $url = '';
 
@@ -85,9 +87,9 @@ class TechnicalOfficeDoctorsController extends Controller
             $url = Storage::disk('public')->url($file['file_url']);
         }
 
-        $doctor->url = $url;
+        $dynamic->url = $url;
 
-        return responder()->success($doctor);
+        return responder()->success($dynamic);
     }
 
     /**
@@ -107,13 +109,9 @@ class TechnicalOfficeDoctorsController extends Controller
 
         unset($params['img']);
 
-        $office_id = $params['office_id'];
+        $params['release_time'] = strtotime($params['release_time']);
 
-        $office = TechnicalOffice::where('id', $office_id)->first();
-
-        $params['office_name'] = $office['name'];
-
-        TechnicalOfficeDoctor::updateOrCreate(['id' => $id], $params);
+        TechnicalOfficeHealthScience::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();
     }
@@ -136,7 +134,7 @@ class TechnicalOfficeDoctorsController extends Controller
         $id = $params['id'];
         $status = $params['status'];
 
-        TechnicalOfficeDoctor::updateOrCreate(['id' => $id], ['status' => $status]);
+        TechnicalOfficeHealthScience::updateOrCreate(['id' => $id], ['status' => $status]);
 
         return responder()->success();
     }

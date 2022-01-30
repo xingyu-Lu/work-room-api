@@ -15,9 +15,17 @@ class TechnicalOfficeIntroduceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $office_introduces = TechnicalOfficeIntroduce::paginate(10);
+        $params = $request->all();
+
+        $where = [];
+
+        if ($params['office_name']) {
+            $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
+        }
+
+        $office_introduces = TechnicalOfficeIntroduce::where($where)->paginate(10);
 
         return responder()->success($office_introduces);
     }
