@@ -113,6 +113,30 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::put('technicalOfficeHealthSciences/status', 'TechnicalOfficeHealthSciencesController@status')->name('technicalOfficeHealthSciences.status');
         Route::apiResource('technicalOfficeHealthSciences', 'TechnicalOfficeHealthSciencesController');
 
+        // 专家介绍
+        Route::put('experts/status', 'ExpertsController@status')->name('experts.status');
+        Route::apiResource('experts', 'ExpertsController');
+
+        // 科研动态
+        Route::put('scientifics/status', 'ScientificsController@status')->name('scientifics.status');
+        Route::apiResource('scientifics', 'ScientificsController');
+
+        // 患者服务
+        Route::put('patientServices/status', 'PatientServicesController@status')->name('patientServices.status');
+        Route::apiResource('patientServices', 'PatientServicesController');
+
+        // 党建
+        Route::put('partys/status', 'PartysController@status')->name('partys.status');
+        Route::apiResource('partys', 'PartysController');
+
+        // 招聘
+        Route::put('jobs/status', 'JobsController@status')->name('jobs.status');
+        Route::apiResource('jobs', 'JobsController');
+
+        // 员工之声
+        Route::put('voiceEmployees/status', 'VoiceEmployeesController@status')->name('voiceEmployees.status');
+        Route::apiResource('voiceEmployees', 'VoiceEmployeesController');
+
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
         //文件上传
