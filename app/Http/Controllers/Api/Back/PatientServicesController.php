@@ -49,6 +49,10 @@ class PatientServicesController extends Controller
             }
         }
 
+        if (empty($params['title'])) {
+            $params['title'] = '';
+        }
+
         $params['release_time'] = strtotime($params['release_time']);
 
         PatientService::create($params);
@@ -86,6 +90,10 @@ class PatientServicesController extends Controller
             if ($patient) {
                 throw new BaseException(['msg' => '已添加，不可新增']);
             }
+        }
+
+        if (empty($params['title'])) {
+            $params['title'] = '';
         }
 
         $params['release_time'] = strtotime($params['release_time']);
