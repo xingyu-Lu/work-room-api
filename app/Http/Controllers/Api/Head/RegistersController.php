@@ -98,6 +98,10 @@ class RegistersController extends Controller
 
         $email = $params['email'];
 
+        if (empty($email)) {
+            throw new BaseException(['msg' => '邮箱必须']);
+        }
+
         $code = rand(1000, 9999);
 
         $insert_data = [

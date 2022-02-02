@@ -21,6 +21,8 @@ class NewsController extends Controller
 
         $where = [];
 
+        $where[] = ['type', '=', $params['type']];
+
         if ($params['title']) {
             $where[] = ['title', 'like', '%' . $params['title'] . '%'];
         }

@@ -163,6 +163,17 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('briefs/yyjj', 'BriefsController@yyjj')->name('briefs.yyjj');
         // 领导团队
         Route::get('briefs/ldtd', 'BriefsController@ldtd')->name('briefs.ldtd');
+        // 医院文化
+        Route::get('briefs/yywh', 'BriefsController@yywh')->name('briefs.yywh');
+        // 历史沿革
+        Route::get('briefs/lsyg', 'BriefsController@lsyg')->name('briefs.lsyg');
+        // 组织机构
+        Route::get('briefs/zzjg', 'BriefsController@zzjg')->name('briefs.zzjg');
+
+        // 医院新闻
+        Route::get('news/yyxw', 'NewsController@yyxw')->name('news.yyxw');
+        // 医院新闻详情
+        Route::get('news/yyxw_detail', 'NewsController@yyxw_detail')->name('news.yyxw_detail');
     });
 
     // 需要 token 验证的接口
