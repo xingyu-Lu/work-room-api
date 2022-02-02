@@ -48,7 +48,7 @@ return [
 
         'h-api' => [
             'driver' => 'jwt',
-            'provider' => 'users',
+            'provider' => 'staffs',
         ],
     ],
 
@@ -73,6 +73,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'staffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staff::class,  
         ],
 
         // 'users' => [

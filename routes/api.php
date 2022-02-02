@@ -150,16 +150,24 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
 Route::namespace('Api\Head')->prefix('head')->group(function () {
     // 获取 token
-    // Route::post('authorizations', 'AuthorizationsController@store')->name('login');
+    Route::post('authorizations', 'AuthorizationsController@store')->name('login');
     
     // 轮播图
     Route::name('api.head.')->name('api.head.')->group(function () {
-        Route::get('rotates', 'RotatesController@index')->name('rotates.index');
+        Route::get('indexs', 'IndexsController@index')->name('indexs.index');
+        // 注册
+        Route::get('registers/code', 'RegistersController@code')->name('registers.code');
+        Route::apiResource('registers', 'RegistersController');
+
+        // 医院简介
+        Route::get('briefs/yyjj', 'BriefsController@yyjj')->name('briefs.yyjj');
+        // 领导团队
+        Route::get('briefs/ldtd', 'BriefsController@ldtd')->name('briefs.ldtd');
     });
 
     // 需要 token 验证的接口
-    Route::middleware(['auth:api'])->name('api.head.')->group(function () {
-        // 登录用户信息
-        Route::get('admins/info', 'AdminsController@info')->name('admins.info');
-    });
+    // Route::middleware(['auth:api'])->name('api.head.')->group(function () {
+    //     // 登录用户信息
+    //     Route::get('admins/info', 'AdminsController@info')->name('admins.info');
+    // });
 });

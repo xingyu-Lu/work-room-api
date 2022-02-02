@@ -60,12 +60,23 @@ CREATE TABLE `syy_upload_files` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文件库记录表';
 
+DROP TABLE IF EXISTS `syy_codes`;
+CREATE TABLE `syy_codes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件id',
+  `code` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '验证码',
+  `release_time` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '发布时间',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 0：不可用 1：可用',
+  `created_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='验证表';
+
 DROP TABLE IF EXISTS `syy_staffs`;
 CREATE TABLE `syy_staffs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
   `name` varchar(10) NOT NULL DEFAULT '' COMMENT '姓名',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
-  `account` varchar(50) NOT NULL DEFAULT '' COMMENT '账号',
+  `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱',
   `password` varchar(50) NOT NULL DEFAULT '' COMMENT '密码',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '管理员账号状态 0：禁用 1：开启',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',

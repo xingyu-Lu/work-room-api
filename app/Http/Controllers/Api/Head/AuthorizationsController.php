@@ -2,33 +2,22 @@
 
 namespace App\Http\Controllers\Api\Head;
 
+use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
-use App\Models\Rotate;
-use App\Models\UploadFile;
+use App\Models\Staff;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
-class RotatesController extends Controller
+class AuthorizationsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $rotates = Rotate::where('status', Rotate::STATUS_1)->orderBy('sort', 'asc')->get();
-
-        foreach ($rotates as $key => $value) {
-            $file = UploadFile::find($value['file_id']);
-            $url = '';
-            if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
-            }
-            $value['url'] = $url;
-        }
-
-        return responder()->success($rotates);
+        //
     }
 
     /**
@@ -39,7 +28,24 @@ class RotatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+
+        $mobile = $params['mobile'] ?? '';
+        $password = md5($params['password'] ?? '');
+
+        $staff = Staff::where('mobile', $mobile)->where('status', 1)->first();
+
+        if ($staff) {
+            if ($password != $staff['password']) {
+                throw new BaseException(['msg' => '密码错误']);
+            }
+
+            $token = Auth::guard('h-api')->login($staff);
+
+            return responder()->success(['token' => $token])->respond();
+        } else {
+            throw new BaseException(['msg' => '账号不存在']);
+        }
     }
 
     /**

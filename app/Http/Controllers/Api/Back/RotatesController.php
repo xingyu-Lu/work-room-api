@@ -35,7 +35,7 @@ class RotatesController extends Controller
      */
     public function index(Request $request)
     {
-        $rotates = Rotate::orderBy('sort', 'asc')->get();
+        $rotates = Rotate::orderBy('id', 'asc')->get();
 
         $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
 
