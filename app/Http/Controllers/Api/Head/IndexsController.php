@@ -80,7 +80,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
         }
         $data['news_xw'][] = $news_0_0;
 
@@ -92,7 +92,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
         }
         $data['news_xw'][] = $news_0_1;
 
@@ -105,7 +105,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
         }
         $data['news_rotate'] = $news_rotate;
 
@@ -119,7 +119,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
         }
         $data['news_gg'] = $news_1;
 
@@ -132,7 +132,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
         }
         $data['job'] = $job;
 
