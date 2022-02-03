@@ -57,6 +57,10 @@ class NewsController extends Controller
 
         $news = News::where('id', $id)->whereIn('status', $where_arr)->first();
 
+        $news->num += 1;
+
+        $news->save();
+
         return responder()->success($news);
     }
 }
