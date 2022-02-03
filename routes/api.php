@@ -174,6 +174,44 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('news/yyxw', 'NewsController@yyxw')->name('news.yyxw');
         // 医院新闻详情
         Route::get('news/yyxw_detail', 'NewsController@yyxw_detail')->name('news.yyxw_detail');
+
+        // 科室列表
+        Route::get('offices/list', 'TechnicalOfficesController@list')->name('offices.list');
+        // 科室介绍列表
+        Route::get('offices/kejs', 'TechnicalOfficesController@kejs')->name('offices.kejs');
+        // 科室介绍详情
+        Route::get('offices/ksjs_detail', 'TechnicalOfficesController@ksjs_detail')->name('offices.ksjs_detail');
+        // 科室动态
+        Route::get('offices/ksdt', 'TechnicalOfficesController@ksdt')->name('offices.ksdt');
+        // 科室动态详情
+        Route::get('offices/ksdt_detail', 'TechnicalOfficesController@ksdt_detail')->name('offices.ksdt_detail');
+        // 科室医生
+        Route::get('offices/ksys', 'TechnicalOfficesController@ksys')->name('offices.ksys');
+        // 科室医生详情
+        Route::get('offices/ksys_detail', 'TechnicalOfficesController@ksys_detail')->name('offices.ksys_detail');
+        // 科室门诊
+        Route::get('offices/ksmz', 'TechnicalOfficesController@ksmz')->name('offices.ksmz');
+        // 科室特色医疗
+        Route::get('offices/tsyl', 'TechnicalOfficesController@tsyl')->name('offices.tsyl');
+        // 科室特色医疗详情
+        Route::get('offices/tsyl_detail', 'TechnicalOfficesController@tsyl_detail')->name('offices.tsyl_detail');
+        // 科室图片
+        Route::get('offices/kstp', 'TechnicalOfficesController@kstp')->name('offices.kstp');
+        // 科室健康科普
+        Route::get('offices/jkkp', 'TechnicalOfficesController@jkkp')->name('offices.jkkp');
+        // 科室健康科普详情
+        Route::get('offices/jkkp_detail', 'TechnicalOfficesController@jkkp_detail')->name('offices.jkkp_detail');
+
+        // 专家介绍
+        Route::get('experts/index', 'ExpertsController@index')->name('offices.index');
+        // 专家介绍详情
+        Route::get('experts/show', 'ExpertsController@show')->name('offices.show');
+
+        // 科研教学
+        Route::get('scientifics/index', 'ScientificsController@index')->name('scientifics.index');
+        // 科研教学详情
+        Route::get('scientifics/show', 'ScientificsController@show')->name('scientifics.show');
+
     });
 
     // 需要 token 验证的接口
