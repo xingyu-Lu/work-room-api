@@ -401,7 +401,7 @@ CREATE TABLE `syy_partys` (
 DROP TABLE IF EXISTS `syy_jobs`;
 CREATE TABLE `syy_jobs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `attachment_id` varchar(20) unsigned NOT NULL DEFAULT '' COMMENT '附件id',
+  `attachment_id` varchar(20) NOT NULL DEFAULT '' COMMENT '附件id',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
   `content` text not null comment '内容',
   `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
