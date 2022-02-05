@@ -23,10 +23,14 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
     Route::post('authorizations', 'AuthorizationsController@store')->name('login');
 
     // 需要 token 验证的接口
-    Route::middleware(['auth:api'])->name('api.back.')->group(function () {
-        Route::apiResource('contracttypes', 'ContractTypeController'); //合同类型
-        Route::apiResource('contracts', 'ContractController'); //合同
-        Route::apiResource('supplier-bank-accounts', 'SupplierBankAccountController'); //银行
+    Route::middleware(['auth:api', 'permission'])->name('api.back.')->group(function () {
+
+        // 角色管理
+        Route::apiResource('roles', 'RolesController');
+
+        //save路由api新增权限
+        Route::post('permissions/saveApiPermission', 'PermissionsController@saveApiPermission')->name('permissions.saveApiPermission');
+        Route::apiResource('permissions', 'PermissionsController');
 
         // 登录用户信息
         Route::get('admins/info', 'AdminsController@info')->name('admins.info');
@@ -137,6 +141,9 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::put('voiceEmployees/status', 'VoiceEmployeesController@status')->name('voiceEmployees.status');
         Route::apiResource('voiceEmployees', 'VoiceEmployeesController');
 
+        // 员工管理
+        Route::apiResource('staffs', 'StaffsController');        
+
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');
         //文件上传
@@ -153,7 +160,7 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
     Route::post('authorizations', 'AuthorizationsController@store')->name('login');
     
     // 轮播图
-    Route::name('api.head.')->name('api.head.')->group(function () {
+    Route::name('api.head.')->group(function () {
         Route::get('indexs', 'IndexsController@index')->name('indexs.index');
         // 注册
         Route::get('registers/code', 'RegistersController@code')->name('registers.code');
@@ -203,15 +210,48 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('offices/jkkp_detail', 'TechnicalOfficesController@jkkp_detail')->name('offices.jkkp_detail');
 
         // 专家介绍
-        Route::get('experts/index', 'ExpertsController@index')->name('offices.index');
+        Route::get('experts/index', 'ExpertsController@index')->name('experts.index');
         // 专家介绍详情
-        Route::get('experts/show', 'ExpertsController@show')->name('offices.show');
+        Route::get('experts/show', 'ExpertsController@show')->name('experts.show');
 
         // 科研教学
         Route::get('scientifics/index', 'ScientificsController@index')->name('scientifics.index');
         // 科研教学详情
         Route::get('scientifics/show', 'ScientificsController@show')->name('scientifics.show');
 
+        // 患者服务
+        Route::get('patientservices/mzlc', 'PatientServicesController@mzlc')->name('patientservices.mzlc');
+        // 患者服务详情
+        Route::get('patientservices/show', 'PatientServicesController@show')->name('patientservices.show');
+
+        // 党建之窗
+        Route::get('partys/index', 'PartysController@index')->name('partys.index');
+        // 党建之窗详情
+        Route::get('partys/show', 'PartysController@show')->name('partys.show');
+
+        // 招聘信息
+        Route::get('jobs/index', 'JobsController@index')->name('jobs.index');
+        // 招聘信息详情
+        Route::get('jobs/show', 'JobsController@show')->name('jobs.show');
+
+        // 员工之声
+        Route::get('staffs/list', 'StaffsController@list')->name('staffs.list');
+        Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');
+        Route::put('staffs/change_pwd', 'StaffsController@change_pwd')->name('staffs.change_pwd');
+        Route::apiResource('staffs', 'StaffsController');
+
+        // 搜索
+        Route::get('searchs/index', 'SearchsController@index')->name('searchs.index');
+
+        // 更新
+        Route::get('updatelogs/index', 'UpdateLogsController@index')->name('updatelogs.index');
+
+        //文件下载
+        Route::get('files/down', 'FilesController@down')->name('files.down');
+        //文件上传
+        Route::post('files/upload', 'FilesController@upload')->name('files.upload');
+        //文件上传(多)
+        Route::post('files/uploads', 'FilesController@uploads')->name('files.uploads');
     });
 
     // 需要 token 验证的接口

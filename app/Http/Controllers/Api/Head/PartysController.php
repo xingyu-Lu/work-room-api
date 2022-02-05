@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Back;
+namespace App\Http\Controllers\Api\Head;
 
 use App\Http\Controllers\Controller;
-use App\Models\VoiceEmployee;
+use App\Models\Party;
 use Illuminate\Http\Request;
 
-class VoiceEmployeesController extends Controller
+class PartysController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +17,18 @@ class VoiceEmployeesController extends Controller
     {
         $params = $request->all();
 
-        $where = [];
+        $where_arr = [];
 
-        if ($params['title']) {
-            $where[] = ['title', 'like', '%' . $params['title'] . '%'];
+        $user = auth('h-api')->user();
+        if ($user) {
+            $where_arr = [0, 1];    
+        } else {
+            $where_arr = [1];
         }
 
-        if ($params['staff_name']) {
-            $where[] = ['staff_name', 'like', '%' . $params['staff_name'] . '%'];
-        }
+        $party = Party::whereIn('status', $where_arr)->where('type', $params['type'])->paginate(10);
 
-        $news = VoiceEmployee::where($where)->orderBy('id', 'desc')->paginate(10);
-
-        return responder()->success($news);
+        return responder()->success($party);
     }
 
     /**
@@ -49,11 +48,26 @@ class VoiceEmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $voice = VoiceEmployee::find($id);
+        $params = $request->all();
 
-        return responder()->success($voice);
+        $where_arr = [];
+
+        $user = auth('h-api')->user();
+        if ($user) {
+            $where_arr = [0, 1];    
+        } else {
+            $where_arr = [1];
+        }
+
+        $party = Party::whereIn('status', $where_arr)->where('id', $params['id'])->first();
+
+        $party->num += 1;
+
+        $party->save();
+
+        return responder()->success($party);
     }
 
     /**
@@ -77,17 +91,5 @@ class VoiceEmployeesController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function status(Request $request)
-    {
-        $params = $request->all();
-
-        $id = $params['id'];
-        $status = $params['status'];
-
-        VoiceEmployee::updateOrCreate(['id' => $id], ['status' => $status]);
-
-        return responder()->success();
     }
 }

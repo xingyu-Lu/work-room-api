@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Back;
 
 use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Menu;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,11 +26,82 @@ class MenusController extends Controller
 
     public function list()
     {
-        $menus = Menu::where('is_enabled', Menu::IS_ENABLED_1)->get();
+        // $menus = Menu::where('is_enabled', Menu::IS_ENABLED_1)->get();
 
-        $menus = $this->getTree($menus);
+        // $menus = $this->getTree($menus);
+
+        // return responder()->success($menus);
+        
+        
+        $admin = auth()->user();
+
+        $root = $admin->hasRole(Role::ROOT, app(Admin::class)->guardName());
+
+        if ($root) {
+            $menus = $this->getRootMenus();
+        } else {
+            $roles_id = [];
+            foreach ($admin->roles as $key => $value) {
+                $roles_id[] = $value->id;
+            }
+            $menus = $this->getRoleMenus($roles_id);
+        }
 
         return responder()->success($menus);
+    }
+
+    public function getRootMenus($list = [], $pid = 0)
+    {
+        $current_user = auth()->user();
+
+        $list = [];
+
+        $menus = Menu::where('pid', $pid)->get()->toArray();
+
+        foreach ($menus as $key => $value) {
+            $list[$key]['id'] = $value['id'];
+            $list[$key]['name'] = $value['name'];
+            $list[$key]['url'] = $value['url'];
+            $list[$key]['icon'] = $value['icon'];
+            $list[$key]['sub'] = $this->getRootMenus($list, $value['id']);
+        }
+
+        return $list;
+    }
+
+    public function getRoleMenus($roles_id)
+    {
+        $current_user = auth()->user();
+
+        $menus_id = DB::table('role_has_menus')->select('menu_id')->whereIn('role_id', $roles_id)->get()->toArray();
+
+        $menus_id = array_column($menus_id, 'menu_id');
+        
+        $menus = Menu::whereIn('id', $menus_id)->where('is_enabled', Menu::IS_ENABLED_1)->get()->toArray();
+
+        $menus = $this->getMenus($menus);
+
+        return $menus;
+    }
+
+    public function getMenus($menus = [], $list = [], $pid = 0)
+    {
+        $list = [];
+
+        foreach ($menus as $key => $value) {
+            if ($value['pid'] != $pid) {
+                continue;
+            }
+
+            $list[$key]['id'] = $value['id'];
+            $list[$key]['name'] = $value['name'];
+            $list[$key]['url'] = $value['url'];
+            $list[$key]['icon'] = $value['icon'];
+            unset($menus[$key]);
+            $list[$key]['sub'] = $this->getMenus($menus, $list, $value['id']);
+        }
+
+        return array_values($list);
     }
 
     public function getTree($menus, $pid = 0, $list = [])

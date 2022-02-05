@@ -406,7 +406,7 @@ CREATE TABLE `syy_jobs` (
   `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
   `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: 门诊流程 1：应聘流程',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: 招聘信息 1：应聘流程',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)

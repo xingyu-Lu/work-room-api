@@ -64,3 +64,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 1.执行我的sql表
+## 2.执行创建权限表 php artisan migrate --path=/database/migrations/2022_01_22_141404_create_permission_tables.php
+## 3.执行创建root角色并赋给超级管理员 php artisan db:seed --class=InitRolesPermissionsAdminsSeeder

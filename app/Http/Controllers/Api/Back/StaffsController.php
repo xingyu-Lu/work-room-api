@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\VoiceEmployee;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
-class VoiceEmployeesController extends Controller
+class StaffsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,17 +19,13 @@ class VoiceEmployeesController extends Controller
 
         $where = [];
 
-        if ($params['title']) {
-            $where[] = ['title', 'like', '%' . $params['title'] . '%'];
+        if ($params['name']) {
+            $where[] = ['name', 'like', '%' . $params['name'] . '%'];
         }
 
-        if ($params['staff_name']) {
-            $where[] = ['staff_name', 'like', '%' . $params['staff_name'] . '%'];
-        }
+        $staff = Staff::where($where)->orderBy('id', 'desc')->paginate(10);
 
-        $news = VoiceEmployee::where($where)->orderBy('id', 'desc')->paginate(10);
-
-        return responder()->success($news);
+        return responder()->success($staff);
     }
 
     /**
@@ -51,9 +47,9 @@ class VoiceEmployeesController extends Controller
      */
     public function show($id)
     {
-        $voice = VoiceEmployee::find($id);
+        $staff = Staff::find($id);
 
-        return responder()->success($voice);
+        return responder()->success($staff);
     }
 
     /**
@@ -65,7 +61,17 @@ class VoiceEmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $request->all();
+
+        if ($params['new_password']) {
+            $params['password'] = md5($params['new_password']);
+        }
+
+        unset($params['new_password']);
+
+        Staff::updateOrCreate(['id' => $id], $params);
+
+        return responder()->success();
     }
 
     /**
@@ -86,7 +92,7 @@ class VoiceEmployeesController extends Controller
         $id = $params['id'];
         $status = $params['status'];
 
-        VoiceEmployee::updateOrCreate(['id' => $id], ['status' => $status]);
+        Staff::updateOrCreate(['id' => $id], ['status' => $status]);
 
         return responder()->success();
     }

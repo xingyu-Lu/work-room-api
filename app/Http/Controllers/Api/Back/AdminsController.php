@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Back;
 use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,9 +25,13 @@ class AdminsController extends Controller
      */
     public function index(Request $request)
     {
-        $page_size = 1;
+        $page_size = 10;
 
-        $admins = Admin::orderBy('id', 'desc')->paginate($page_size);;
+        $admins = Admin::orderBy('id', 'desc')->where('id', '<>', 1)->paginate($page_size);;
+
+        foreach ($admins as $key => $value) {
+            $value->getRoleNames();
+        }
 
         return responder()->success($admins);
     }
@@ -41,7 +46,13 @@ class AdminsController extends Controller
     {
         $params = $request->all();
 
-        $params['password'] = md5($params['password']);
+        if ($params['new_password']) {
+            $params['password'] = md5($params['new_password']);
+        } else {
+            $params['password'] = md5($params['password']);
+        }
+
+        unset($params['new_password']);
 
         $admin = Admin::where('name', $params['name'])->first();
 
@@ -49,7 +60,15 @@ class AdminsController extends Controller
             throw new BaseException(['msg' => '账号名已存在']);
         }
 
-        Admin::create($params);
+        $role_ids = $params['role_ids'];
+        unset($params['role_ids']);
+
+        $admin = Admin::create($params);
+
+        //管理员关联角色
+        $roles = Role::whereIn('id', $role_ids)->where('guard_name', app(Admin::class)->guardName())->get();
+
+        $admin->assignRole($roles);
 
         return responder()->success();
     }
@@ -63,6 +82,16 @@ class AdminsController extends Controller
     public function show($id)
     {
         $admin = Admin::where('id', $id)->first();
+
+        $role = [];
+
+        $admin->getRoleNames();
+
+        foreach ($admin['roles'] as $key => $value) {
+            $role[] = $value['id'];
+        }
+
+        $admin['role'] = $role;
 
         return responder()->success($admin);
     }
@@ -78,9 +107,22 @@ class AdminsController extends Controller
     {
         $params = $request->all();
 
-        $params['password'] = md5($params['password']);
+        if ($params['new_password']) {
+            $params['password'] = md5($params['new_password']);
+        } else {
+            $params['password'] = md5($params['password']);
+        }
 
-        Admin::updateOrCreate(['id' => $id], $params);
+        unset($params['new_password']);
+
+        $role_ids = $params['role_ids'];
+        unset($params['role_ids']);
+
+        $admin = Admin::updateOrCreate(['id' => $id], $params);
+
+        // 更新角色
+        $roles = Role::whereIn('id', $role_ids)->where('guard_name', app(Admin::class)->guardName())->get();
+        $admin->syncRoles($roles);
 
         return responder()->success();
     }

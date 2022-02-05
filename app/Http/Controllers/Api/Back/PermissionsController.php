@@ -3,33 +3,23 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\VoiceEmployee;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
 
-class VoiceEmployeesController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $params = $request->all();
+        $permission = Permission::getPermissions()->toArray();
 
-        $where = [];
-
-        if ($params['title']) {
-            $where[] = ['title', 'like', '%' . $params['title'] . '%'];
-        }
-
-        if ($params['staff_name']) {
-            $where[] = ['staff_name', 'like', '%' . $params['staff_name'] . '%'];
-        }
-
-        $news = VoiceEmployee::where($where)->orderBy('id', 'desc')->paginate(10);
-
-        return responder()->success($news);
+        return responder()->success($permission);
     }
 
     /**
@@ -51,9 +41,7 @@ class VoiceEmployeesController extends Controller
      */
     public function show($id)
     {
-        $voice = VoiceEmployee::find($id);
-
-        return responder()->success($voice);
+        //
     }
 
     /**
@@ -79,15 +67,27 @@ class VoiceEmployeesController extends Controller
         //
     }
 
-    public function status(Request $request)
+    public function saveApiPermission()
     {
-        $params = $request->all();
+        $routes = Route::getRoutes()->get();
 
-        $id = $params['id'];
-        $status = $params['status'];
-
-        VoiceEmployee::updateOrCreate(['id' => $id], ['status' => $status]);
-
+        foreach ($routes as $key => $value) {
+            $action = $value->action;
+            $middleware = $action['middleware'];
+            if (in_array('auth:api', $middleware) && in_array('permission', $middleware)) {
+                $name = $action['as'];
+                try {
+                    $permission_name = Permission::findByName($name);
+                    if ($permission_name) {
+                        continue;
+                    }
+                } catch (\Exception $e) {
+                    //权限不存在创建权限
+                    Permission::create(['guard_name' => app(Admin::class)->guardName(), 'name' => $name]);
+                }
+            }
+        }
+        
         return responder()->success();
     }
 }
