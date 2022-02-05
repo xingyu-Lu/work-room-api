@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '患者服务，党建之窗，人才招聘，员工之声，搜索等等',
+                'timestamp' => '2022-02-04',
+            ],
+            [
                 'content' => '医院概况，新闻动态，科室介绍，专家介绍，科研教学等等',
                 'timestamp' => '2022-02-03',
             ],
