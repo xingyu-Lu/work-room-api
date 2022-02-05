@@ -142,6 +142,7 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('voiceEmployees', 'VoiceEmployeesController');
 
         // 员工管理
+        Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');
         Route::apiResource('staffs', 'StaffsController');        
 
         //文件下载
