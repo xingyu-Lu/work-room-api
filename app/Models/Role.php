@@ -19,6 +19,11 @@ class Role extends SpatieRole
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
+    }
+
     public static function create(array $attributes = [])
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);

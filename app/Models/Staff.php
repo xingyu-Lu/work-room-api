@@ -30,6 +30,11 @@ class Staff extends Authenticatable implements JWTSubject
     //均可批量赋值
     protected $guarded = [];
 
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
