@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\Back;
 use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
+use App\Models\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JobsController extends Controller
 {
@@ -53,6 +55,12 @@ class JobsController extends Controller
             $params['title'] = '';
         }
 
+        if ($params['attachment']) {
+            $params['attachment_id'] = $params['attachment'];
+        }
+
+        unset($params['attachment']);
+
         $params['release_time'] = strtotime($params['release_time']);
 
         Job::create($params);
@@ -69,6 +77,21 @@ class JobsController extends Controller
     public function show($id)
     {
         $dynamic = Job::find($id);
+
+        $attachment_ids = explode(',', $dynamic['attachment_id']);
+        $attachment = [];
+
+        foreach ($attachment_ids as $key => $value) {
+            $file = UploadFile::find($value);
+            if ($file) {
+                $attachment[] = [
+                    'name' => Storage::disk('public')->url($file['file_url']),
+                    'url' => Storage::disk('public')->url($file['file_url'])
+                ];
+            }
+        }
+
+        $dynamic->attachment = $attachment;
 
         return responder()->success($dynamic);
     }
@@ -95,6 +118,12 @@ class JobsController extends Controller
         if (empty($params['title'])) {
             $params['title'] = '';
         }
+
+        if ($params['attachment']) {
+            $params['attachment_id'] = $params['attachment'];
+        }
+
+        unset($params['attachment']);
 
         $params['release_time'] = strtotime($params['release_time']);
 
