@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Head;
 
 use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
+use App\Models\FileEmployee;
 use App\Models\Staff;
+use App\Models\UploadFile;
 use App\Models\VoiceEmployee;
 use Illuminate\Http\Request;
 
@@ -40,7 +42,7 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if (!$user) {
-            throw new BaseException(['msg' => '未登录']);
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
 
         $where = [];
@@ -66,7 +68,7 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if (!$user) {
-            throw new BaseException(['msg' => '未登录']);
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
 
         $params = $request->all();
@@ -93,7 +95,7 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if (!$user) {
-            throw new BaseException(['msg' => '未登录']);
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
 
         $voice = VoiceEmployee::whereIn('status', [0,1])->where('id', $id)->first();
@@ -117,7 +119,7 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if (!$user) {
-            throw new BaseException(['msg' => '未登录']);
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
 
         $params = $request->all();
@@ -142,6 +144,12 @@ class StaffsController extends Controller
 
     public function status(Request $request)
     {
+        $user = auth('h-api')->user();
+
+        if (!$user) {
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
+        }
+
         $params = $request->all();
 
         $id = $params['id'];
@@ -157,7 +165,7 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if (!$user) {
-            throw new BaseException(['msg' => '未登录']);
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
 
         $params = $request->all();
@@ -165,6 +173,73 @@ class StaffsController extends Controller
         $password = md5($params['password']);
 
         Staff::updateOrCreate(['id' => $user['id']], ['password' => $password]);
+
+        return responder()->success();
+    }
+
+    public function updload_file(Request $request)
+    {
+        $user = auth('h-api')->user();
+
+        if (!$user) {
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
+        }
+
+        $params = $request->all();
+
+        $attachment = explode(',', $params['attachment']);
+
+        foreach ($attachment as $key => $value) {
+            $file = UploadFile::find($value);
+
+            $insert_data = [
+                'file_id' => $value,
+                'file_name' => $file['file_name'],
+                'staff_id' => $user['id'],
+            ];
+            
+            FileEmployee::create($insert_data);
+        }
+
+        return responder()->success();
+    }
+
+    public function file_list(Request $request)
+    {
+        $user = auth('h-api')->user();
+
+        if (!$user) {
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
+        }
+
+        $params = $request->all();
+
+        $where = [];
+        if ($params['file_name']) {
+            $where[] = [
+                'file_name', 'like', '%' . $params['file_name'] . '%'
+            ];
+        }
+
+        $file = FileEmployee::with('files')->where('status', 1)->where($where)->where('staff_id', $user['id'])->paginate(10);
+
+        return responder()->success($file);
+    }
+
+    public function file_delete(Request $request)
+    {
+        $user = auth('h-api')->user();
+
+        if (!$user) {
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
+        }
+
+        $params = $request->all();
+
+        $id = $params['id'];
+        $status = $params['status'];
+
+        FileEmployee::updateOrCreate(['id' => $id], ['status' => $status]);
 
         return responder()->success();
     }

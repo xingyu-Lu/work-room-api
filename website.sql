@@ -427,3 +427,15 @@ CREATE TABLE `syy_voice_employees` (
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='员工之声';
+
+DROP TABLE IF EXISTS `syy_file_employees`;
+CREATE TABLE `syy_file_employees` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `staff_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '员工id',
+  `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '文件id',
+  `file_name` varchar(50) NOT NULL DEFAULT '' COMMENT '文件名',
+  `status` tinyint(1) unsigned not null default '1' comment '0:删除；1:正常',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='员工文件(云盘)';

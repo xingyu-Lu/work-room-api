@@ -32,7 +32,7 @@ class FilesController extends Controller
         $user = auth('h-api')->user();
 
         if (!$user) {
-            throw new BaseException(['msg' => '未登录']);
+            throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
         
         $params = $request->all();

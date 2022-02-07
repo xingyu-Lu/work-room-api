@@ -239,6 +239,11 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('staffs/list', 'StaffsController@list')->name('staffs.list');
         Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');
         Route::put('staffs/change_pwd', 'StaffsController@change_pwd')->name('staffs.change_pwd');
+
+        Route::get('staffs/file_list', 'StaffsController@file_list')->name('staffs.file_list');
+        Route::post('staffs/updload_file', 'StaffsController@updload_file')->name('staffs.updload_file');
+        Route::put('staffs/file_delete', 'StaffsController@file_delete')->name('staffs.file_delete');
+
         Route::apiResource('staffs', 'StaffsController');
 
         // 搜索
