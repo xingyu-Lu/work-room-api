@@ -36,6 +36,10 @@ class AuthorizationsController extends Controller
         $admin = Admin::where('name', $name)->first();
 
         if ($admin) {
+            if ($admin['status'] == 0) {
+                throw new BaseException(['msg' => '已禁用']);
+            }
+
             if ($password != $admin['password']) {
                 throw new BaseException(['msg' => '密码错误']);
             }

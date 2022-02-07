@@ -19,7 +19,7 @@ class MenusController extends Controller
      */
     public function index()
     {
-        $menus = Menu::where('is_enabled', Menu::IS_ENABLED_1)->get();
+        $menus = Menu::get();
 
         return responder()->success($menus);
     }
