@@ -143,7 +143,11 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 员工管理
         Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');
-        Route::apiResource('staffs', 'StaffsController');        
+        Route::apiResource('staffs', 'StaffsController');
+
+        // 员工文件
+        Route::put('fileEmployees/status', 'FileEmployeesController@status')->name('fileEmployees.status');
+        Route::apiResource('fileEmployees', 'FileEmployeesController');        
 
         //文件下载
         Route::get('files/down', 'FilesController@down')->name('files.down');

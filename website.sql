@@ -432,6 +432,7 @@ DROP TABLE IF EXISTS `syy_file_employees`;
 CREATE TABLE `syy_file_employees` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `staff_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '员工id',
+  `staff_name` varchar(50) NOT NULL DEFAULT '' COMMENT '员工姓名',
   `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '文件id',
   `file_name` varchar(50) NOT NULL DEFAULT '' COMMENT '文件名',
   `status` tinyint(1) unsigned not null default '1' comment '0:删除；1:正常',

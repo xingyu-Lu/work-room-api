@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '后台加员工文件管理，员工文件表加字段优化等等',
+                'timestamp' => '2022-02-09',
+            ],
+            [
                 'content' => '后台管理员功能测试，菜单优化，前端token失效清除优化，前台加我的云盘功能，升级element-plus等等',
                 'timestamp' => '2022-02-07',
             ],
