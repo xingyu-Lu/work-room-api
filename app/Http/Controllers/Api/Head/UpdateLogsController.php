@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '各个模块编辑后为待审核优化，代码优化，医院概况、新闻动态测试优化等等',
+                'timestamp' => '2022-02-09',
+            ],
+            [
                 'content' => '后台加员工文件管理，员工文件表加字段优化等等',
                 'timestamp' => '2022-02-09',
             ],
