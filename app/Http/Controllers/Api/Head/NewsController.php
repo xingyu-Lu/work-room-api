@@ -34,7 +34,7 @@ class NewsController extends Controller
             }
             $value['img_url'] = $url;
 
-            $value['strip_content'] = str_replace('&nbsp;', '', mb_substr(strip_tags($value['content']), 0, 100));
+            $value['strip_content'] = str_replace('&nbsp;', '', mb_substr(strip_tags($value['content']), 0, 100)) . '...';
         }
 
         return responder()->success($news);
