@@ -113,6 +113,8 @@ class TechnicalOfficeDoctorsController extends Controller
 
         $params['office_name'] = $office['name'];
 
+        $params['status'] = 0;
+
         TechnicalOfficeDoctor::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();

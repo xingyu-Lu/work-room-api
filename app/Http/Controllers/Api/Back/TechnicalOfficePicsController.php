@@ -107,6 +107,8 @@ class TechnicalOfficePicsController extends Controller
 
         unset($params['img']);
 
+        $params['status'] = 0;
+
         TechnicalOfficePic::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();

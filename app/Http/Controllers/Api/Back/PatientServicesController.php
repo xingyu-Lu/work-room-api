@@ -97,6 +97,7 @@ class PatientServicesController extends Controller
         }
 
         $params['release_time'] = strtotime($params['release_time']);
+        $params['status'] = 0;
 
         PatientService::updateOrCreate(['id' => $id], $params);
 

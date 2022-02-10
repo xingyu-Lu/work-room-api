@@ -74,6 +74,8 @@ class TechnicalOfficesController extends Controller
     {
         $params = $request->all();
 
+        $params['status'] = 0;
+
         TechnicalOffice::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();

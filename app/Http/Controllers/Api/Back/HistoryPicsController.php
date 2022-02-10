@@ -94,6 +94,7 @@ class HistoryPicsController extends Controller
 
         $params['file_id'] = $params['img'];
         unset($params['img']);
+        $params['status'] = 0;
 
         HistoryPic::updateOrCreate(['id' => $id], $params);
 

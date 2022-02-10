@@ -95,6 +95,8 @@ class HistoryLeadersController extends Controller
         $params['file_id'] = $params['img'];
         unset($params['img']);
 
+        $params['status'] = 0;
+
         HistoryLeader::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();

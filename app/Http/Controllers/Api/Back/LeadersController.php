@@ -95,6 +95,8 @@ class LeadersController extends Controller
         $params['file_id'] = $params['img'];
         unset($params['img']);
 
+        $params['status'] = 0;
+
         Leader::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();

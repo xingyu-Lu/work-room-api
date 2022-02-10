@@ -126,6 +126,7 @@ class JobsController extends Controller
         unset($params['attachment']);
 
         $params['release_time'] = strtotime($params['release_time']);
+        $params['status'] = 0;
 
         Job::updateOrCreate(['id' => $id], $params);
 

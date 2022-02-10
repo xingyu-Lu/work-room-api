@@ -80,6 +80,7 @@ class TechnicalOfficeIntroduceController extends Controller
     public function update(Request $request, $id)
     {
         $params = $request->all();
+        $params['status'] = 0;
 
         TechnicalOfficeIntroduce::updateOrCreate(['id' => $id], $params);
 

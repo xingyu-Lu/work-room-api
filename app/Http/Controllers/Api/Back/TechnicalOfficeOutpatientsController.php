@@ -77,6 +77,7 @@ class TechnicalOfficeOutpatientsController extends Controller
     public function update(Request $request, $id)
     {
         $params = $request->all();
+        $params['status'] = 0;
 
         TechnicalOfficeOutpatient::updateOrCreate(['id' => $id], $params);
 

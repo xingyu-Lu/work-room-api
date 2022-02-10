@@ -110,6 +110,7 @@ class TechnicalOfficeHealthSciencesController extends Controller
         unset($params['img']);
 
         $params['release_time'] = strtotime($params['release_time']);
+        $params['status'] = 0;
 
         TechnicalOfficeHealthScience::updateOrCreate(['id' => $id], $params);
 

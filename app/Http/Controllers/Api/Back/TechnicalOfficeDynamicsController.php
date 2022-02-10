@@ -111,6 +111,7 @@ class TechnicalOfficeDynamicsController extends Controller
         unset($params['img']);
 
         $params['release_time'] = strtotime($params['release_time']);
+        $params['status'] = 0;
 
         TechnicalOfficeDynamic::updateOrCreate(['id' => $id], $params);
 

@@ -74,6 +74,7 @@ class ScientificsController extends Controller
         $params = $request->all();
 
         $params['release_time'] = strtotime($params['release_time']);
+        $params['status'] = 0;
 
         Scientific::updateOrCreate(['id' => $id], $params);
 

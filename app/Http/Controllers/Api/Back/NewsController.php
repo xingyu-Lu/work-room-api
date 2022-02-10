@@ -128,6 +128,7 @@ class NewsController extends Controller
         unset($params['img'], $params['attachment']);
 
         $params['release_time'] = strtotime($params['release_time']);
+        $params['status'] = 0;
 
         News::updateOrCreate(['id' => $id], $params);
 
