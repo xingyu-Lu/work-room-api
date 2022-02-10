@@ -119,6 +119,8 @@ class NewsController extends Controller
 
         if ($params['img']) {
             $params['file_id'] = $params['img'];
+        } else {
+            $params['file_id'] = 0;
         }
 
         if ($params['attachment']) {
