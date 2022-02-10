@@ -119,7 +119,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 25) . '...';
         }
         $data['news_gg'] = $news_1;
 
@@ -132,7 +132,7 @@ class IndexsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['img_url'] = $url;
-            $value['title'] = mb_substr($value['title'], 0, 10) . '...';
+            $value['title'] = mb_substr($value['title'], 0, 25) . '...';
         }
         $data['job'] = $job;
 
