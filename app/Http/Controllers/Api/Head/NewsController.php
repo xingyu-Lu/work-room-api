@@ -24,7 +24,7 @@ class NewsController extends Controller
             $where_arr = [1];
         }
 
-        $news = News::whereIn('status', $where_arr)->where('type', $type)->paginate(10);
+        $news = News::whereIn('status', $where_arr)->where('type', $type)->orderBy('id', 'desc')->paginate(10);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
