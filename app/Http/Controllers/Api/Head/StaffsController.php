@@ -25,7 +25,7 @@ class StaffsController extends Controller
             $where_arr = [1];
         }
 
-        $voice = VoiceEmployee::whereIn('status', $where_arr)->paginate(10);
+        $voice = VoiceEmployee::whereIn('status', $where_arr)->orderBy('id', 'desc')->paginate(10);
 
         return responder()->success($voice);
     }
@@ -52,7 +52,7 @@ class StaffsController extends Controller
             ];
         }
 
-        $voice = VoiceEmployee::whereIn('status', [0, 1])->where($where)->where('staff_id', $user['id'])->paginate(10);
+        $voice = VoiceEmployee::whereIn('status', [0, 1])->where($where)->where('staff_id', $user['id'])->orderBy('id', 'desc')->paginate(10);
 
         return responder()->success($voice);
     }
@@ -221,7 +221,7 @@ class StaffsController extends Controller
             ];
         }
 
-        $file = FileEmployee::with('files')->where('status', 1)->where($where)->where('staff_id', $user['id'])->paginate(10);
+        $file = FileEmployee::with('files')->where('status', 1)->where($where)->where('staff_id', $user['id'])->orderBy('id', 'desc')->paginate(10);
 
         return responder()->success($file);
     }

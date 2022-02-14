@@ -43,6 +43,12 @@ class FilesController extends Controller
 
         $file = $request->file('file');
 
+        $allow_file_extension = ['jpg', 'jpeg', 'png', 'gif', 'doc', 'docx', 'xlsx', 'xls', 'pdf', 'zip', 'rar', 'mp4'];
+
+        if (!in_array($file->extension(), $allow_file_extension)) {
+            throw new BaseException(['msg' => '不能上传' . $file->extension() . '格式的文件']);
+        }
+
         if (round($file->getSize()/1024/1024, 2) > 200) {
             throw new BaseException(['msg' => '上传文件过大']);
         }
@@ -57,9 +63,9 @@ class FilesController extends Controller
             'file_name' => $file->getClientOriginalName(),
             'file_size' => $file->getSize(),
             'file_size_m' => round($file->getSize()/1024/1024, 2) . 'M',
-            'file_type' => $file->getMimeType(),
+            'file_type' => $file->getMimeType() ?? '',
             'real_name' => $file->getClientOriginalName(),
-            'extension' => $file->extension(),
+            'extension' => $file->extension() ?? '',
         ];
 
         $res = UploadFile::create($insert_data);
