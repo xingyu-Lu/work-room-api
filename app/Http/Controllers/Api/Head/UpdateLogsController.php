@@ -16,7 +16,11 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
-                'content' => '员工发文上传文件加限制，列表倒序等等',
+                'content' => '升级element plus等等',
+                'timestamp' => '2022-02-15',
+            ],
+            [
+                'content' => '员工发文上传文件加限制，列表倒序，文章样式修改等等',
                 'timestamp' => '2022-02-14',
             ],
             [
