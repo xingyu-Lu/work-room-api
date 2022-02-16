@@ -196,6 +196,7 @@ class StaffsController extends Controller
                 'file_id' => $value,
                 'file_name' => $file['file_name'],
                 'staff_id' => $user['id'],
+                'staff_name' => $user['name'],
             ];
             
             FileEmployee::create($insert_data);
