@@ -233,6 +233,7 @@ class StaffsController extends Controller
             }
             $value['file_url'] = $url;
         }
+        unset($value);
 
         return responder()->success($file);
     }

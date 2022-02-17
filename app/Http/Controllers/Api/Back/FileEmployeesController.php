@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\FileEmployee;
+use App\Models\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileEmployeesController extends Controller
 {
@@ -30,6 +32,16 @@ class FileEmployeesController extends Controller
         }
 
         $file = FileEmployee::with('files')->where($where)->paginate(10);
+
+        foreach ($file as $key => &$value) {
+            $upload_file = UploadFile::find($value['file_id']);
+            $url = '';
+            if ($upload_file) {
+                $url = Storage::disk('public')->url($upload_file['file_url']);
+            }
+            $value['file_url'] = $url;
+        }
+        unset($value);
 
         return responder()->success($file);
     }
