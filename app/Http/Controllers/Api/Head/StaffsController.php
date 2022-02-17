@@ -9,6 +9,7 @@ use App\Models\Staff;
 use App\Models\UploadFile;
 use App\Models\VoiceEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StaffsController extends Controller
 {
@@ -223,6 +224,15 @@ class StaffsController extends Controller
         }
 
         $file = FileEmployee::with('files')->where('status', 1)->where($where)->where('staff_id', $user['id'])->orderBy('id', 'desc')->paginate(10);
+
+        foreach ($file as $key => &$value) {
+            $upload_file = UploadFile::find($value['file_id']);
+            $url = '';
+            if ($upload_file) {
+                $url = Storage::disk('public')->url($upload_file['file_url']);
+            }
+            $value['file_url'] = $url;
+        }
 
         return responder()->success($file);
     }

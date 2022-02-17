@@ -68,3 +68,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## 1.执行我的sql表
 ## 2.执行创建权限表 php artisan migrate --path=/database/migrations/2022_01_22_141404_create_permission_tables.php
 ## 3.执行创建root角色并赋给超级管理员 php artisan db:seed --class=InitRolesPermissionsAdminsSeeder
+## 4.storage 开777权限：chmod -R 777 storage/
+## 5.创建软链：php artisan storage:link
