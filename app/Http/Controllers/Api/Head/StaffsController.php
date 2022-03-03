@@ -95,11 +95,11 @@ class StaffsController extends Controller
     {
         $user = auth('h-api')->user();
 
-        if (!$user) {
+        $voice = VoiceEmployee::whereIn('status', [0,1])->where('id', $id)->first();
+
+        if (!$user && $voice['status'] == 0) {
             throw new BaseException(['msg' => '未登录', 'status' => '401']);
         }
-
-        $voice = VoiceEmployee::whereIn('status', [0,1])->where('id', $id)->first();
 
         $voice->num += 1;
 
