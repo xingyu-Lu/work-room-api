@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '升级element-plus等等',
+                'timestamp' => '2022-03-07',
+            ],
+            [
                 'content' => 'ico优化，head图片制作替换等等',
                 'timestamp' => '2022-03-03',
             ],
