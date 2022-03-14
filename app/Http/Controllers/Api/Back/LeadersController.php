@@ -18,7 +18,12 @@ class LeadersController extends Controller
 
         foreach ($rotates as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = Storage::disk('public')->url($file['file_url']);
+
+            if ($file) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } else {
+                $url = '';
+            }
 
             $img_arr[] = $url;
         }
@@ -37,7 +42,13 @@ class LeadersController extends Controller
 
         foreach ($leaders as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = Storage::disk('public')->url($file['file_url']);
+
+            if ($file) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } else {
+                $url = '';
+            }
+            
             $value['url'] = $url;
         }
 
