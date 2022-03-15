@@ -72,7 +72,7 @@ class IndexsController extends Controller
         $data['expert'][] = $expert;
 
         // 医院新闻
-        $news_0_0 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(2)->get();
+        $news_0_0 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(0)->take(2)->get();
         foreach ($news_0_0 as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
@@ -84,7 +84,7 @@ class IndexsController extends Controller
         }
         $data['news_xw'][] = $news_0_0;
 
-        $news_0_1 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(2)->take(2)->get();
+        $news_0_1 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(2)->take(2)->get();
         foreach ($news_0_1 as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
@@ -111,7 +111,7 @@ class IndexsController extends Controller
 
 
         // 医院公告
-        $news_1 = News::where('type', 1)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(5)->get();
+        $news_1 = News::where('type', 1)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(0)->take(5)->get();
         foreach ($news_1 as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
@@ -124,7 +124,7 @@ class IndexsController extends Controller
         $data['news_gg'] = $news_1;
 
         // 人事招聘
-        $job = Job::where('type', 0)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(5)->get();
+        $job = Job::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(0)->take(5)->get();
         foreach ($job as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';

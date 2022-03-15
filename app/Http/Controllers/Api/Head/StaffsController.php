@@ -80,6 +80,8 @@ class StaffsController extends Controller
 
         $params['staff_name'] = $user['name'];
 
+        $params['status'] = 0;
+
         VoiceEmployee::create($params);
 
         return responder()->success();
@@ -124,6 +126,8 @@ class StaffsController extends Controller
         }
 
         $params = $request->all();
+
+        $params['status'] = 0;
 
         unset($params['release_time']);
 

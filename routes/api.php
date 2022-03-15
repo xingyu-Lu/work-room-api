@@ -81,7 +81,8 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::put('organizations/status', 'OrganizationsController@status')->name('organizations.status');
         Route::apiResource('organizations', 'OrganizationsController');
 
-        // 历任院长
+        // 医院新闻
+        Route::put('news/recommend', 'NewsController@recommend')->name('news.recommend');
         Route::put('news/status', 'NewsController@status')->name('news.status');
         Route::apiResource('news', 'NewsController');
 

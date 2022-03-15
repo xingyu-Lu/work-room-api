@@ -27,7 +27,7 @@ class NewsController extends Controller
             $where[] = ['title', 'like', '%' . $params['title'] . '%'];
         }
 
-        $news = News::where($where)->orderBy('id', 'desc')->paginate(10);
+        $news = News::where($where)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->paginate(10);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
@@ -156,6 +156,21 @@ class NewsController extends Controller
         $status = $params['status'];
 
         News::updateOrCreate(['id' => $id], ['status' => $status]);
+
+        return responder()->success();
+    }
+
+    public function recommend(Request $request)
+    {
+        $params = $request->all();
+
+        $update_data = [
+            'is_recommend' => $params['is_recommend'],
+        ];
+
+        foreach ($params['multipleSelection'] as $key => $value) {
+            News::updateOrCreate(['id' => $value['id']], $update_data);
+        }
 
         return responder()->success();
     }
