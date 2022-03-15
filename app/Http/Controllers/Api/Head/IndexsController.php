@@ -124,7 +124,7 @@ class IndexsController extends Controller
         $data['news_gg'] = $news_1;
 
         // 人事招聘
-        $job = Job::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(0)->take(5)->get();
+        $job = Job::where('type', 0)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(5)->get();
         foreach ($job as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
