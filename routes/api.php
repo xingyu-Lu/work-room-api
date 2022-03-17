@@ -88,7 +88,18 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 科室列表
         Route::put('technicalOffices/status', 'TechnicalOfficesController@status')->name('technicalOffices.status');
-        Route::apiResource('technicalOffices', 'TechnicalOfficesController');        
+        Route::apiResource('technicalOffices', 'TechnicalOfficesController');
+
+        // 科室成员
+        Route::apiResource('technicalOfficeMembers', 'TechnicalOfficeMembersController');
+
+        // 科室栏目设置
+        Route::get('technicalOfficeColumnSets/list', 'TechnicalOfficeColumnSetsController@list')->name('technicalOfficeColumnSets.list'); 
+        Route::apiResource('technicalOfficeColumnSets', 'TechnicalOfficeColumnSetsController'); 
+
+        // 科室栏目
+        Route::put('technicalOfficeColumns/status', 'TechnicalOfficeColumnsController@status')->name('technicalOfficeColumns.status');
+        Route::apiResource('technicalOfficeColumns', 'TechnicalOfficeColumnsController');        
 
         // 科室介绍
         Route::put('technicalOfficeIntroduces/status', 'TechnicalOfficeIntroduceController@status')->name('technicalOfficeIntroduces.status');
@@ -144,6 +155,7 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 员工管理
         Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');
+        Route::get('staffs/list', 'StaffsController@list')->name('staffs.list');
         Route::apiResource('staffs', 'StaffsController');
 
         // 员工文件
