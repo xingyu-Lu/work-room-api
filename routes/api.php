@@ -227,6 +227,10 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         // 科室健康科普详情
         Route::get('offices/jkkp_detail', 'TechnicalOfficesController@jkkp_detail')->name('offices.jkkp_detail');
 
+        // 科室栏目设置
+        Route::get('technicalOfficeColumnSets/list', 'TechnicalOfficeColumnSetsController@list')->name('technicalOfficeColumnSets.list'); 
+        Route::apiResource('technicalOfficeColumnSets', 'TechnicalOfficeColumnSetsController');
+
         // 专家介绍
         Route::get('experts/index', 'ExpertsController@index')->name('experts.index');
         // 专家介绍详情
@@ -253,6 +257,7 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('jobs/show', 'JobsController@show')->name('jobs.show');
 
         // 员工之声
+        Route::get('staffs/info', 'StaffsController@info')->name('staffs.info');
         Route::get('staffs/list', 'StaffsController@list')->name('staffs.list');
         Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');
         Route::put('staffs/change_pwd', 'StaffsController@change_pwd')->name('staffs.change_pwd');

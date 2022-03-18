@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Storage;
 
 class StaffsController extends Controller
 {
+    public function info()
+    {
+        $user = auth('h-api')->user();
+
+        $user = Staff::with('office')->where('id', $user['id'])->first();
+
+        return responder()->success($user);
+    }
+
     public function list(Request $request)
     {
         $params = $request->all();

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\TechnicalOffice;
+use App\Models\TechnicalOfficeMember;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Staff extends Authenticatable implements JWTSubject
 {
@@ -58,5 +60,10 @@ class Staff extends Authenticatable implements JWTSubject
     public function guardName()
     {
         return $this->guard_name;
+    }
+
+    public function office()
+    {
+        return $this->belongsTo(TechnicalOfficeMember::class, 'id', 'staff_id');
     }
 }

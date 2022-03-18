@@ -1,25 +1,80 @@
 <?php
 
-namespace App\Http\Controllers\Api\Back;
+namespace App\Http\Controllers\Api\Head;
 
 use App\Http\Controllers\Controller;
+use App\Models\Staff;
 use App\Models\TechnicalOffice;
 use App\Models\TechnicalOfficeColumnSet;
 use Illuminate\Http\Request;
 
 class TechnicalOfficeColumnSetsController extends Controller
 {
-    public function list()
-    {
-        $office_column_sets = TechnicalOfficeColumnSet::get();
+    public $staff = null;
 
-        foreach ($office_column_sets as $key => $value) {
-            if ($value['type'] == 0) {
-                $value['type_name'] = '(图文或视频)';
-            } else {
-                $value['type_name'] = '(仅图)';
-            }
+    public function __construct()
+    {
+        $user = auth('h-api')->user();
+
+        $user = Staff::with('office')->where('id', $user['id'])->first();
+
+        $this->staff = $user;
+
+        return true;
+    }
+
+    public function list(Request $request)
+    {
+        $params = $request->all();
+
+        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $params['office_id'])->get()->toArray();
+
+        foreach ($office_column_sets as $key => &$value) {
+            $value['url'] = '/ksjs_column';
         }
+
+        unset($value);
+
+        $insert_arr = [
+            [
+                'id' => 0,
+                'office_id' => $this->staff->office['office_id'],
+                'office_name' => $this->staff->office['office_name'],
+                'name' => '科室门诊',
+                'type' => 0,
+                'url' => '/ksmz',
+            ],
+            [
+                'id' => 0,
+                'office_id' => $this->staff->office['office_id'],
+                'office_name' => $this->staff->office['office_name'],
+                'name' => '科室医生',
+                'type' => 0,
+                'url' => '/ksjs-ksys',
+            ],
+            [
+                'id' => 0,
+                'office_id' => $this->staff->office['office_id'],
+                'office_name' => $this->staff->office['office_name'],
+                'name' => '科室动态',
+                'type' => 0,
+                'url' => '/ksjs-ksdt',
+            ],
+            [
+                'id' => 0,
+                'office_id' => $this->staff->office['office_id'],
+                'office_name' => $this->staff->office['office_name'],
+                'name' => '科室介绍',
+                'type' => 0,
+                'url' => '/ksjs_detail',
+            ],
+        ];
+
+        foreach ($insert_arr as $key => $value) {
+            array_unshift($office_column_sets, $value);   
+        }
+
+        $office_column_sets = array_chunk($office_column_sets, 7);
 
         return responder()->success($office_column_sets);
     }
@@ -43,6 +98,8 @@ class TechnicalOfficeColumnSetsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
+        $where[] = ['office_id', '=', $this->staff->office['office_id']];
+
         $office_column_sets = TechnicalOfficeColumnSet::where($where)->paginate(10);
 
         return responder()->success($office_column_sets);
@@ -58,11 +115,9 @@ class TechnicalOfficeColumnSetsController extends Controller
     {
         $params = $request->all();
 
-        $office = TechnicalOffice::find($params['office_id']);
-
         $insert_data = [
-            'office_id' => $params['office_id'],
-            'office_name' => $office['name'],
+            'office_id' => $this->staff->office['office_id'],
+            'office_name' => $this->staff->office['office_name'],
             'name' => $params['name'],
             'type' => $params['type'],
         ];
@@ -99,8 +154,8 @@ class TechnicalOfficeColumnSetsController extends Controller
         $office = TechnicalOffice::find($params['office_id']);
 
         $update_data = [
-            'office_id' => $params['office_id'],
-            'office_name' => $office['name'],
+            'office_id' => $this->staff->office['office_id'],
+            'office_name' => $this->staff->office['office_name'],
             'name' => $params['name'],
             'type' => $params['type'],
         ];

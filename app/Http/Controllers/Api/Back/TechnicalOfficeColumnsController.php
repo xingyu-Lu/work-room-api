@@ -44,6 +44,10 @@ class TechnicalOfficeColumnsController extends Controller
                 $url = Storage::disk('public')->url($file['file_url']);
             }
             $value['url'] = $url;
+
+            $column_set = TechnicalOfficeColumnSet::find($value['column_id']);
+
+            $value['column_type_name'] = $column_set['type'] == 0 ? '图文或视频' : '仅图';
         }
 
         return responder()->success($office_columns);
@@ -69,10 +73,9 @@ class TechnicalOfficeColumnsController extends Controller
             'column_id' => $params['column_id'],
             'column_name' => $column_set['name'],
             'title' => $params['title'],
-            'file_id' => $params['img'],
+            'file_id' => $params['img'] ?? 0,
             'content' => $params['content'],
             'release_time' => strtotime($params['release_time']),
-            'type' => $params['type'],
         ];
 
         TechnicalOfficeColumn::create($insert_data);
@@ -121,10 +124,9 @@ class TechnicalOfficeColumnsController extends Controller
             'column_id' => $params['column_id'],
             'column_name' => $column_set['name'],
             'title' => $params['title'],
-            'file_id' => $params['img'],
+            'file_id' => $params['img'] ?? 0,
             'content' => $params['content'],
             'release_time' => strtotime($params['release_time']),
-            'type' => $params['type'],
         ];
 
         TechnicalOfficeColumn::updateOrCreate(['id' => $id], $update_data);
