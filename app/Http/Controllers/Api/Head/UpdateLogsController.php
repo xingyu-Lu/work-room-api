@@ -17,7 +17,7 @@ class UpdateLogsController extends Controller
         $data = [
             [
                 'content' => '开始改进思考，后台加科室栏目设置优化，前台科室设置开始等等',
-                'timestamp' => '2022-03-17',
+                'timestamp' => '2022-03-18',
             ],
             [
                 'content' => '后台加科室成员，科室栏目设置，科室栏目，升级element-plus等等',
