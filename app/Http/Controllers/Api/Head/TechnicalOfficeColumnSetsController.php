@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Head;
 
+use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\TechnicalOffice;
@@ -16,11 +17,27 @@ class TechnicalOfficeColumnSetsController extends Controller
     {
         $user = auth('h-api')->user();
 
-        $user = Staff::with('office')->where('id', $user['id'])->first();
-
-        $this->staff = $user;
+        if ($user) {
+            $user = Staff::with('office')->where('id', $user['id'])->first();
+            $this->staff = $user;
+        }
 
         return true;
+    }
+
+    public function column_list()
+    {
+        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $this->staff->office['office_id'])->get();
+
+        foreach ($office_column_sets as $key => $value) {
+            if ($value['type'] == 0) {
+                $value['type_name'] = '(图文或视频)';
+            } else {
+                $value['type_name'] = '(仅图)';
+            }
+        }
+
+        return responder()->success($office_column_sets);
     }
 
     public function list(Request $request)
@@ -29,8 +46,10 @@ class TechnicalOfficeColumnSetsController extends Controller
 
         $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $params['office_id'])->get()->toArray();
 
+        $office = TechnicalOffice::where('id', $params['office_id'])->first();
+
         foreach ($office_column_sets as $key => &$value) {
-            $value['url'] = '/ksjs_column';
+            $value['url'] = '/ksjs-column';
         }
 
         unset($value);
@@ -38,32 +57,32 @@ class TechnicalOfficeColumnSetsController extends Controller
         $insert_arr = [
             [
                 'id' => 0,
-                'office_id' => $this->staff->office['office_id'],
-                'office_name' => $this->staff->office['office_name'],
+                'office_id' => $params['office_id'],
+                'office_name' => $office['office_name'],
                 'name' => '科室门诊',
                 'type' => 0,
                 'url' => '/ksmz',
             ],
             [
                 'id' => 0,
-                'office_id' => $this->staff->office['office_id'],
-                'office_name' => $this->staff->office['office_name'],
+                'office_id' => $params['office_id'],
+                'office_name' => $office['office_name'],
                 'name' => '科室医生',
                 'type' => 0,
                 'url' => '/ksjs-ksys',
             ],
             [
                 'id' => 0,
-                'office_id' => $this->staff->office['office_id'],
-                'office_name' => $this->staff->office['office_name'],
+                'office_id' => $params['office_id'],
+                'office_name' => $office['office_name'],
                 'name' => '科室动态',
                 'type' => 0,
                 'url' => '/ksjs-ksdt',
             ],
             [
                 'id' => 0,
-                'office_id' => $this->staff->office['office_id'],
-                'office_name' => $this->staff->office['office_name'],
+                'office_id' => $params['office_id'],
+                'office_name' => $office['office_name'],
                 'name' => '科室介绍',
                 'type' => 0,
                 'url' => '/ksjs_detail',
@@ -86,17 +105,17 @@ class TechnicalOfficeColumnSetsController extends Controller
      */
     public function index(Request $request)
     {
+        if (empty($this->staff)) {
+            throw new BaseException(['msg' => '未登录']);
+        }
+
+        if (empty($this->staff['office'])) {
+            throw new BaseException(['msg' => '非科室成员']);
+        }
+
         $params = $request->all();
 
         $where = [];
-
-        if ($params['name']) {
-            $where[] = ['name', 'like', '%' . $params['name'] . '%'];
-        }
-
-        if ($params['office_name']) {
-            $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
-        }
 
         $where[] = ['office_id', '=', $this->staff->office['office_id']];
 
@@ -113,6 +132,14 @@ class TechnicalOfficeColumnSetsController extends Controller
      */
     public function store(Request $request)
     {
+        if (empty($this->staff)) {
+            throw new BaseException(['msg' => '未登录']);
+        }
+
+        if (empty($this->staff['office'])) {
+            throw new BaseException(['msg' => '非科室成员']);
+        }
+
         $params = $request->all();
 
         $insert_data = [
@@ -149,9 +176,15 @@ class TechnicalOfficeColumnSetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $params = $request->all();
+        if (empty($this->staff)) {
+            throw new BaseException(['msg' => '未登录']);
+        }
 
-        $office = TechnicalOffice::find($params['office_id']);
+        if (empty($this->staff['office'])) {
+            throw new BaseException(['msg' => '非科室成员']);
+        }
+
+        $params = $request->all();
 
         $update_data = [
             'office_id' => $this->staff->office['office_id'],
@@ -173,7 +206,15 @@ class TechnicalOfficeColumnSetsController extends Controller
      */
     public function destroy($id)
     {
-        TechnicalOfficeColumnSet::where('id', $id)->delete();
+        if (empty($this->staff)) {
+            throw new BaseException(['msg' => '未登录']);
+        }
+
+        if (empty($this->staff['office'])) {
+            throw new BaseException(['msg' => '非科室成员']);
+        }
+
+        TechnicalOfficeColumnSet::where('id', $id)->where('office_id', $this->staff->office['office_id'])->delete();
 
         return responder()->success();
     }

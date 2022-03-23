@@ -202,6 +202,8 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
 
         // 科室列表
         Route::get('offices/list', 'TechnicalOfficesController@list')->name('offices.list');
+        // 科室详情
+        Route::get('offices/info', 'TechnicalOfficesController@info')->name('offices.info');
         // 科室介绍列表
         Route::get('offices/kejs', 'TechnicalOfficesController@kejs')->name('offices.kejs');
         // 科室介绍详情
@@ -226,10 +228,21 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('offices/jkkp', 'TechnicalOfficesController@jkkp')->name('offices.jkkp');
         // 科室健康科普详情
         Route::get('offices/jkkp_detail', 'TechnicalOfficesController@jkkp_detail')->name('offices.jkkp_detail');
+        // 科室栏目
+        Route::apiResource('offices/column', 'TechnicalOfficeHeadColumnsController');
 
         // 科室栏目设置
         Route::get('technicalOfficeColumnSets/list', 'TechnicalOfficeColumnSetsController@list')->name('technicalOfficeColumnSets.list'); 
+        Route::get('technicalOfficeColumnSets/column_list', 'TechnicalOfficeColumnSetsController@column_list')->name('technicalOfficeColumnSets.column_list'); 
         Route::apiResource('technicalOfficeColumnSets', 'TechnicalOfficeColumnSetsController');
+        // 科室动态管理
+        Route::apiResource('technicalOfficeDynamics', 'TechnicalOfficeDynamicsController');
+        // 科室门诊管理
+        Route::apiResource('technicalOfficeOutpatients', 'TechnicalOfficeOutpatientsController');
+        // 科室成员管理
+        Route::apiResource('technicalOfficeMembers', 'TechnicalOfficeMembersController');
+        // 科室栏目管理
+        Route::apiResource('technicalOfficeColumns', 'TechnicalOfficeColumnsController');
 
         // 专家介绍
         Route::get('experts/index', 'ExpertsController@index')->name('experts.index');
@@ -257,6 +270,7 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::get('jobs/show', 'JobsController@show')->name('jobs.show');
 
         // 员工之声
+        Route::get('staffs/staff_list', 'StaffsController@staff_list')->name('staffs.staff_list');
         Route::get('staffs/info', 'StaffsController@info')->name('staffs.info');
         Route::get('staffs/list', 'StaffsController@list')->name('staffs.list');
         Route::put('staffs/status', 'StaffsController@status')->name('staffs.status');

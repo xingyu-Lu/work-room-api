@@ -209,6 +209,7 @@ CREATE TABLE `syy_news` (
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
   `type` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: 医院新闻 1：医院公告 2：视频新闻',
   `is_commend` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0：非推荐 1：推荐',
+  `office_article_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '科室文章id',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)

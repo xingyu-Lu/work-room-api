@@ -10,7 +10,7 @@ class StaffsController extends Controller
 {
     public function list(Request $request)
     {
-        $staff = Staff::orderBy('id', 'desc')->get();
+        $staff = Staff::where('status', 1)->orderBy('id', 'desc')->get();
 
         return responder()->success($staff);
     }

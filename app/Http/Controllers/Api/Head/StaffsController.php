@@ -13,11 +13,20 @@ use Illuminate\Support\Facades\Storage;
 
 class StaffsController extends Controller
 {
+    public function staff_list()
+    {
+        $staff = Staff::where('status', 1)->orderBy('id', 'desc')->get();
+
+        return responder()->success($staff);
+    }
+
     public function info()
     {
         $user = auth('h-api')->user();
 
-        $user = Staff::with('office')->where('id', $user['id'])->first();
+        if ($user) {
+            $user = Staff::with('office')->where('id', $user['id'])->first();
+        }
 
         return responder()->success($user);
     }

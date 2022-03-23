@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\Storage;
 
 class TechnicalOfficesController extends Controller
 {
+    public function info(Request $request)
+    {
+        $params = $request->all();
+
+        $info = TechnicalOffice::find($params['id']);
+
+        return responder()->success($info);
+    }
+
     public function list()
     {
         $where_arr = [];

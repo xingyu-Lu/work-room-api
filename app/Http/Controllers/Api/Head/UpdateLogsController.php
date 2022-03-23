@@ -16,6 +16,18 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '前台科室设置(科室介绍，科室动态，科室医生，科室门诊，栏目)优化等等',
+                'timestamp' => '2022-03-23',
+            ],
+            [
+                'content' => '前台科室设置(科室门诊，科室成员，栏目设置，科室栏目)等等',
+                'timestamp' => '2022-03-22',
+            ],
+            [
+                'content' => '前台科室设置(科室动态)等等',
+                'timestamp' => '2022-03-21',
+            ],
+            [
                 'content' => '开始改进思考，后台加科室栏目设置优化，前台科室设置开始等等',
                 'timestamp' => '2022-03-18',
             ],
