@@ -27,6 +27,10 @@ class TechnicalOfficeMembersController extends Controller
             throw new BaseException(['msg' => '非科室成员']);
         }
 
+        if ($user['office']['is_head'] != 1) {
+            throw new BaseException(['msg' => '非科室负责人']);   
+        }
+
         return true;
     }
 
