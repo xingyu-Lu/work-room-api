@@ -16,7 +16,7 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
-                'content' => '整站审核状态优化，前端上传文件优化等等',
+                'content' => '整站审核状态优化，前端上传文件优化，加宜宾市第三人民医院meta等等',
                 'timestamp' => '2022-03-24',
             ],
             [
