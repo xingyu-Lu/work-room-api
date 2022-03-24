@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Back;
 
 use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use App\Models\TechnicalOffice;
 use App\Models\TechnicalOfficeDynamic;
 use App\Models\UploadFile;
@@ -137,6 +138,22 @@ class TechnicalOfficeDynamicsController extends Controller
         $status = $params['status'];
 
         TechnicalOfficeDynamic::updateOrCreate(['id' => $id], ['status' => $status]);
+
+        $dynamic = TechnicalOfficeDynamic::find($id);
+
+        // 审核通过的自动同步院新闻
+        if ($status == 1) {
+            $syn_data = [
+                'title' => $dynamic['title'],
+                'file_id' => $dynamic['file_id'],
+                'content' => $dynamic['content'],
+                'release_time' => strtotime($dynamic['release_time']),
+                'status' => 1,
+                'type' => 0,
+            ];
+
+            News::updateOrCreate(['office_article_id' => $id], $syn_data);
+        }
 
         return responder()->success();
     }
