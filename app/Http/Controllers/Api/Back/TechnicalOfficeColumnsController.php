@@ -74,7 +74,7 @@ class TechnicalOfficeColumnsController extends Controller
             'column_name' => $column_set['name'],
             'title' => $params['title'],
             'file_id' => $params['img'] ?? 0,
-            'content' => $params['content'],
+            'content' => $params['content'] ?? '',
             'release_time' => strtotime($params['release_time']),
         ];
 
@@ -125,7 +125,7 @@ class TechnicalOfficeColumnsController extends Controller
             'column_name' => $column_set['name'],
             'title' => $params['title'],
             'file_id' => $params['img'] ?? 0,
-            'content' => $params['content'],
+            'content' => $params['content'] ?? '',
             'release_time' => strtotime($params['release_time']),
         ];
 
