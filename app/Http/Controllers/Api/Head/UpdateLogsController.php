@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '升级element-plus，添加后台测试数据，科室地址提示优化等等',
+                'timestamp' => '2022-03-28',
+            ],
+            [
                 'content' => '升级服务端PHP版本到8.1.4等等',
                 'timestamp' => '2022-03-25',
             ],
