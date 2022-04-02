@@ -62,6 +62,10 @@ class ExpertsController extends Controller
 
         $params['office_name'] = $office['name'];
 
+        $params['position'] = $params['position'] ?? '';
+        $params['professional'] = $params['professional'] ?? '';
+        $params['content'] = $params['content'] ?? '';
+
         Expert::create($params);
 
         return responder()->success();
