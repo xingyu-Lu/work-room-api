@@ -20,6 +20,8 @@ class TechnicalOfficeHeadColumnsController extends Controller
      */
     public function index(Request $request)
     {
+        $user = auth('h-api')->user();
+
         $params = $request->all();
 
         //分页条件
@@ -36,7 +38,13 @@ class TechnicalOfficeHeadColumnsController extends Controller
         $office_column_set = TechnicalOfficeColumnSet::where('id', $params['column_id'])->first();
 
         if ($office_column_set['type'] == 0) {
-            $office_columns = TechnicalOfficeColumn::where($where)->orderBy('id', 'desc')->paginate(20);
+            if ($user) {
+                $office_columns = TechnicalOfficeColumn::where($where)->whereIn('status', [0, 1]);
+            } else {
+                $office_columns->whereIn('status', [0]);
+            }
+
+            $office_columns = $office_columns->orderBy('id', 'desc')->paginate(20);
 
             foreach ($office_columns as $key => $value) {
                 $file = UploadFile::find($value['file_id']);
@@ -54,6 +62,12 @@ class TechnicalOfficeHeadColumnsController extends Controller
 
         if ($office_column_set['type'] == 1) {
             $office_columns = TechnicalOfficeColumn::where($where);
+
+            if ($user) {
+                $office_columns->whereIn('status', [0, 1]);
+            } else {
+                $office_columns->whereIn('status', [0]);
+            }
 
             $total = $office_columns->count();
 
