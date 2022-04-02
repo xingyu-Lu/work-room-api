@@ -41,7 +41,7 @@ class TechnicalOfficeHeadColumnsController extends Controller
             if ($user) {
                 $office_columns = TechnicalOfficeColumn::where($where)->whereIn('status', [0, 1]);
             } else {
-                $office_columns->whereIn('status', [0]);
+                $office_columns = TechnicalOfficeColumn::where($where)->whereIn('status', [0]);
             }
 
             $office_columns = $office_columns->orderBy('id', 'desc')->paginate(20);
