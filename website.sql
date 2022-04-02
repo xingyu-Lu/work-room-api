@@ -202,7 +202,7 @@ CREATE TABLE `syy_news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
   `file_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '新闻封面图id',
-  `attachment_id` varchar(20) unsigned NOT NULL DEFAULT 0 COMMENT '附件id',
+  `attachment_id` varchar(20) NOT NULL DEFAULT '' COMMENT '附件id',
   `content` text not null comment '内容',
   `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
   `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
