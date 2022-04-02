@@ -119,6 +119,10 @@ class ExpertsController extends Controller
 
         $params['status'] = 0;
 
+        $params['position'] = $params['position'] ?? '';
+        $params['professional'] = $params['professional'] ?? '';
+        $params['content'] = $params['content'] ?? '';
+
         Expert::updateOrCreate(['id' => $id], $params);
 
         return responder()->success();
