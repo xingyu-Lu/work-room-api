@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '前台首页医院公告，人事招聘显示优化，升级element-plus等等',
+                'timestamp' => '2022-04-09',
+            ],
+            [
                 'content' => '前台手机模式调整去响应式，后台专家新增修改优化等等',
                 'timestamp' => '2022-04-02',
             ],
