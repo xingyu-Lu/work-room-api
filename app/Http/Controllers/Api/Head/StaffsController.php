@@ -71,7 +71,7 @@ class StaffsController extends Controller
             ];
         }
 
-        $voice = VoiceEmployee::whereIn('status', [0, 1])->where($where)->where('staff_id', $user['id'])->orderBy('id', 'desc')->paginate(10);
+        $voice = VoiceEmployee::where($where)->where('staff_id', $user['id'])->orderBy('id', 'desc')->paginate(10);
 
         return responder()->success($voice);
     }
