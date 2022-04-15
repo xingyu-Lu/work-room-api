@@ -65,7 +65,7 @@ class TechnicalOfficesController extends Controller
 
         $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->get()->toArray();
 
-        $office = array_chunk($office, 3);
+        $office = array_chunk($office, 8);
 
         return responder()->success($office);
     }
