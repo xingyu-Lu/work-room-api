@@ -32,6 +32,12 @@ class RegistersController extends Controller
     {
         $params = $request->all();
 
+        $staff = Staff::where('mobile', $params['mobile'])->first();
+
+        if ($staff) {
+            throw new BaseException(['msg' => '手机号已注册']);
+        }
+
         $code = Code::where('code', $params['code'])->where('status', 1)->orderBy('id', 'desc')->first();
 
         if (empty($code)) {
