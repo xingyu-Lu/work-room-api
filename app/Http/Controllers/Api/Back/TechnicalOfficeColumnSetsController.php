@@ -122,4 +122,16 @@ class TechnicalOfficeColumnSetsController extends Controller
 
         return responder()->success();
     }
+
+    public function status(Request $request)
+    {
+        $params = $request->all();
+
+        $id = $params['id'];
+        $status = $params['status'];
+
+        TechnicalOfficeColumnSet::updateOrCreate(['id' => $id], ['status' => $status]);
+
+        return responder()->success();
+    }
 }

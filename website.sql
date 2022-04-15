@@ -359,6 +359,7 @@ CREATE TABLE `syy_technical_office_column_sets` (
   `office_name` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '栏目名称',
   `type` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0：图文或视频 1：仅图',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见；2：删除',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)

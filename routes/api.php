@@ -94,6 +94,7 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('technicalOfficeMembers', 'TechnicalOfficeMembersController');
 
         // 科室栏目设置
+        Route::put('technicalOfficeColumnSets/status', 'TechnicalOfficeColumnSetsController@status')->name('technicalOfficeColumnSets.status'); 
         Route::get('technicalOfficeColumnSets/list', 'TechnicalOfficeColumnSetsController@list')->name('technicalOfficeColumnSets.list'); 
         Route::apiResource('technicalOfficeColumnSets', 'TechnicalOfficeColumnSetsController'); 
 
@@ -243,6 +244,10 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         Route::apiResource('technicalOfficeMembers', 'TechnicalOfficeMembersController');
         // 科室栏目管理
         Route::apiResource('technicalOfficeColumns', 'TechnicalOfficeColumnsController');
+        // 科室介绍管理
+        Route::apiResource('technicalOfficeIntroduce', 'TechnicalOfficeIntroduceController');
+        // 科室医生管理
+        Route::apiResource('technicalOfficeDoctors', 'TechnicalOfficeDoctorsController');
 
         // 专家介绍
         Route::get('experts/index', 'ExpertsController@index')->name('experts.index');

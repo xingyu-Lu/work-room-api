@@ -152,7 +152,7 @@ class TechnicalOfficesController extends Controller
             $where_arr = [1];
         }
 
-        $doctor = TechnicalOfficeDoctor::whereIn('status', $where_arr)->where('office_id', $params['id'])->get()->toArray();
+        $doctor = TechnicalOfficeDoctor::whereIn('status', $where_arr)->where('office_id', $params['id'])->orderBy('sort', 'asc')->get()->toArray();
 
         foreach ($doctor as $key => &$value) {
             $file = UploadFile::find($value['file_id']);

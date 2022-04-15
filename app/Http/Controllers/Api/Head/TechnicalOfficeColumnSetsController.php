@@ -27,7 +27,7 @@ class TechnicalOfficeColumnSetsController extends Controller
 
     public function column_list()
     {
-        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $this->staff->office['office_id'])->get();
+        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $this->staff->office['office_id'])->where('status', [0, 1])->get();
 
         foreach ($office_column_sets as $key => $value) {
             if ($value['type'] == 0) {
@@ -44,7 +44,16 @@ class TechnicalOfficeColumnSetsController extends Controller
     {
         $params = $request->all();
 
-        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $params['office_id'])->get()->toArray();
+        $where_arr = [];
+
+        $user = auth('h-api')->user();
+        if ($user) {
+            $where_arr = [0, 1];    
+        } else {
+            $where_arr = [1];
+        }
+
+        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $params['office_id'])->whereIn('status', $where_arr)->get()->toArray();
 
         $office = TechnicalOffice::where('id', $params['office_id'])->first();
 
@@ -147,6 +156,7 @@ class TechnicalOfficeColumnSetsController extends Controller
             'office_name' => $this->staff->office['office_name'],
             'name' => $params['name'],
             'type' => $params['type'],
+            'status' => 0,
         ];
 
         TechnicalOfficeColumnSet::create($insert_data);
@@ -191,6 +201,7 @@ class TechnicalOfficeColumnSetsController extends Controller
             'office_name' => $this->staff->office['office_name'],
             'name' => $params['name'],
             'type' => $params['type'],
+            'status' => 0
         ];
 
         TechnicalOfficeColumnSet::updateOrCreate(['id' => $params['id']], $update_data);
