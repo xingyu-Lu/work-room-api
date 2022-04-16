@@ -45,6 +45,10 @@ class TechnicalOfficesController extends Controller
             throw new BaseException(['msg' => '科室已添加']);
         }
 
+        $params['address'] = $params['address'] ?? '';
+
+        $params['phone'] = $params['phone'] ?? '';
+
         TechnicalOffice::create($params);
 
         return responder()->success();
