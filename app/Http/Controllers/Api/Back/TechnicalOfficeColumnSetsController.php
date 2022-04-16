@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 
 class TechnicalOfficeColumnSetsController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
-        $office_column_sets = TechnicalOfficeColumnSet::get();
+        $params = $request->all();
+
+        $where = [];
+
+        if (isset($params['office_id'])) {
+            $where[] = [
+                'office_id', '=', $params['office_id']
+            ];
+        }
+
+        $office_column_sets = TechnicalOfficeColumnSet::where($where)->get();
 
         foreach ($office_column_sets as $key => $value) {
             if ($value['type'] == 0) {
