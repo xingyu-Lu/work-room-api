@@ -78,6 +78,10 @@ class TechnicalOfficesController extends Controller
     {
         $params = $request->all();
 
+        $params['address'] = $params['address'] ?? '';
+
+        $params['phone'] = $params['phone'] ?? '';
+
         $params['status'] = 0;
 
         TechnicalOffice::updateOrCreate(['id' => $id], $params);
