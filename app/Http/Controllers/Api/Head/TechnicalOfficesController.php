@@ -63,7 +63,7 @@ class TechnicalOfficesController extends Controller
             ];
         }
 
-        $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->get()->toArray();
+        $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->orderBy('sort', 'asc')->get()->toArray();
 
         $office = array_chunk($office, 8);
 
