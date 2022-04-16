@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers\Api\Head;
 
+use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
+use App\Models\Staff;
 use App\Models\TechnicalOfficeIntroduce;
 use Illuminate\Http\Request;
 
 class TechnicalOfficeIntroduceController extends Controller
 {
+    public $staff = null;
+
+    public function __construct()
+    {
+        $user = auth('h-api')->user();
+
+        if ($user) {
+            $user = Staff::with('office')->where('id', $user['id'])->first();
+            $this->staff = $user;
+        } else {
+            throw new BaseException(['msg' => '未登录']);
+        }
+
+        if (empty($user['office'])) {
+            throw new BaseException(['msg' => '非科室成员']);
+        }
+
+        return true;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +49,14 @@ class TechnicalOfficeIntroduceController extends Controller
     public function store(Request $request)
     {
         $params = $request->all();
+
+        $office = TechnicalOffice::where('id', $office_id)->first();
+
+        $params['office_name'] = $office['name'];
+
+        $params['office_id'] = $this->staff->office['office_id'];
+
+        $params['status'] = 0;
 
         TechnicalOfficeIntroduce::create($params);
 
@@ -56,6 +86,14 @@ class TechnicalOfficeIntroduceController extends Controller
     public function update(Request $request, $id)
     {
         $params = $request->all();
+
+        $office_id = $this->staff->office['office_id'];
+
+        $office = TechnicalOffice::where('id', $office_id)->first();
+
+        $params['office_name'] = $office['name'];
+
+        $params['office_id'] = $this->staff->office['office_id'];
 
         $params['status'] = 0;
 
