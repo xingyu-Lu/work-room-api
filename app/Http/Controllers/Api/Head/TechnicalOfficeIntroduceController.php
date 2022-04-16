@@ -51,7 +51,7 @@ class TechnicalOfficeIntroduceController extends Controller
     {
         $params = $request->all();
 
-        $office = TechnicalOffice::where('id', $office_id)->first();
+        $office = TechnicalOffice::where('id', $this->staff->office['office_id'])->first();
 
         $params['office_name'] = $office['name'];
 
