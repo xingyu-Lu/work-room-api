@@ -6,6 +6,7 @@ use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\FileEmployee;
 use App\Models\Staff;
+use App\Models\TechnicalOfficeMember;
 use App\Models\UploadFile;
 use App\Models\VoiceEmployee;
 use Illuminate\Http\Request;
@@ -25,7 +26,11 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if ($user) {
-            $user = Staff::with('office')->where('id', $user['id'])->first();
+            $user = Staff::where('id', $user['id'])->first();
+
+            $office = TechnicalOfficeMember::where('staff_id', $user['id'])->get()->toArray();
+
+            $user['office'] = $office;
         }
 
         return responder()->success($user);
