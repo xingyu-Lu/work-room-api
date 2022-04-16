@@ -29,7 +29,7 @@ class TechnicalOfficeMembersController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $office_members = TechnicalOfficeMember::where($where)->paginate(10);
+        $office_members = TechnicalOfficeMember::where($where)->paginate(30);
 
         return responder()->success($office_members);
     }
