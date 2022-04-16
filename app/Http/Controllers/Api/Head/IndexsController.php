@@ -48,9 +48,9 @@ class IndexsController extends Controller
         $data['rotates'] = $rotates;
 
         // 科室
-        $office_1 = TechnicalOffice::skip(0)->whereIn('status', $where_arr)->take(5)->get();
-        $office_2 = TechnicalOffice::skip(5)->whereIn('status', $where_arr)->take(5)->get();
-        $office_3 = TechnicalOffice::skip(10)->whereIn('status', $where_arr)->take(5)->get();        
+        $office_1 = TechnicalOffice::skip(0)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();
+        $office_2 = TechnicalOffice::skip(5)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();
+        $office_3 = TechnicalOffice::skip(10)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();        
 
         $data['offices'][] = $office_1;
         $data['offices'][] = $office_2;
