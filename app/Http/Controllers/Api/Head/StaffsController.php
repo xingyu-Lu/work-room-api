@@ -26,11 +26,11 @@ class StaffsController extends Controller
         $user = auth('h-api')->user();
 
         if ($user) {
-            $user = Staff::where('id', $user['id'])->first();
+            $user = Staff::with('office')->where('id', $user['id'])->first();
 
-            $office = TechnicalOfficeMember::where('staff_id', $user['id'])->get()->toArray();
+            // $office = TechnicalOfficeMember::where('staff_id', $user['id'])->get()->toArray();
 
-            $user['office'] = $office;
+            // $user['office'] = $office;
         }
 
         return responder()->success($user);
