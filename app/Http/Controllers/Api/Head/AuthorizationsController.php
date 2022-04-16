@@ -33,9 +33,9 @@ class AuthorizationsController extends Controller
         $mobile = $params['mobile'] ?? '';
         $password = md5($params['password'] ?? '');
 
-        $staff = Staff::where('mobile', $mobile)->where('status', 1)->first();
+        $staff = Staff::where('mobile', $mobile)->first();
 
-        if ($staff) {
+        if ($staff && $staff['status'] == 1) {
             if ($password != $staff['password']) {
                 throw new BaseException(['msg' => '密码错误']);
             }
@@ -43,6 +43,8 @@ class AuthorizationsController extends Controller
             $token = Auth::guard('h-api')->login($staff);
 
             return responder()->success(['token' => $token])->respond();
+        } elseif ($staff && $staff['status'] == 0) {
+            throw new BaseException(['msg' => '账号待审核']);
         } else {
             throw new BaseException(['msg' => '账号不存在']);
         }
