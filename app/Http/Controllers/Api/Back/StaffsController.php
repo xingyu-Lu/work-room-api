@@ -30,7 +30,7 @@ class StaffsController extends Controller
             $where[] = ['name', 'like', '%' . $params['name'] . '%'];
         }
 
-        $staff = Staff::where($where)->orderBy('id', 'desc')->paginate(10);
+        $staff = Staff::where($where)->orderBy('id', 'desc')->paginate(30);
 
         return responder()->success($staff);
     }
