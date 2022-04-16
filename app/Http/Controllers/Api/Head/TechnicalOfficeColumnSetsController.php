@@ -63,40 +63,69 @@ class TechnicalOfficeColumnSetsController extends Controller
 
         unset($value);
 
-        $insert_arr = [
-            [
-                'id' => 0,
-                'office_id' => $params['office_id'],
-                'office_name' => $office['name'],
-                'name' => '科室门诊',
-                'type' => 0,
-                'url' => '/ksmz',
-            ],
-            [
-                'id' => 0,
-                'office_id' => $params['office_id'],
-                'office_name' => $office['name'],
-                'name' => $office['name'] == '门诊部' ? '门诊坐诊医生简介' : '科室医生',
-                'type' => 0,
-                'url' => '/ksjs-ksys',
-            ],
-            [
-                'id' => 0,
-                'office_id' => $params['office_id'],
-                'office_name' => $office['name'],
-                'name' => '科室动态',
-                'type' => 0,
-                'url' => '/ksjs-ksdt',
-            ],
-            [
-                'id' => 0,
-                'office_id' => $params['office_id'],
-                'office_name' => $office['name'],
-                'name' => '科室介绍',
-                'type' => 0,
-                'url' => '/ksjs_detail',
-            ],
-        ];
+        if ($office['name'] == '门诊部') {
+            $insert_arr = [
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '门诊坐诊医生简介',
+                    'type' => 0,
+                    'url' => '/ksjs-ksys',
+                ],
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '科室动态',
+                    'type' => 0,
+                    'url' => '/ksjs-ksdt',
+                ],
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '科室介绍',
+                    'type' => 0,
+                    'url' => '/ksjs_detail',
+                ],
+            ];
+        } else {
+            $insert_arr = [
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '科室门诊',
+                    'type' => 0,
+                    'url' => '/ksmz',
+                ],
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '科室医生',
+                    'type' => 0,
+                    'url' => '/ksjs-ksys',
+                ],
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '科室动态',
+                    'type' => 0,
+                    'url' => '/ksjs-ksdt',
+                ],
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '科室介绍',
+                    'type' => 0,
+                    'url' => '/ksjs_detail',
+                ],
+            ];
+        }
 
         foreach ($insert_arr as $key => $value) {
             array_unshift($office_column_sets, $value);   
