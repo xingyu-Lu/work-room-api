@@ -27,7 +27,7 @@ class TechnicalOfficeColumnSetsController extends Controller
 
     public function column_list()
     {
-        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $this->staff->office['office_id'])->where('status', [0, 1])->get();
+        $office_column_sets = TechnicalOfficeColumnSet::where('office_id', $this->staff->office['office_id'])->whereIn('status', [0, 1])->get();
 
         foreach ($office_column_sets as $key => $value) {
             if ($value['type'] == 0) {
