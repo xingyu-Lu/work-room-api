@@ -67,7 +67,7 @@ class TechnicalOfficeColumnSetsController extends Controller
             [
                 'id' => 0,
                 'office_id' => $params['office_id'],
-                'office_name' => $office['office_name'],
+                'office_name' => $office['name'],
                 'name' => '科室门诊',
                 'type' => 0,
                 'url' => '/ksmz',
@@ -75,15 +75,15 @@ class TechnicalOfficeColumnSetsController extends Controller
             [
                 'id' => 0,
                 'office_id' => $params['office_id'],
-                'office_name' => $office['office_name'],
-                'name' => '科室医生',
+                'office_name' => $office['name'],
+                'name' => $office['name'] == '门诊部' ? '门诊坐诊医生简介' : '科室医生',
                 'type' => 0,
                 'url' => '/ksjs-ksys',
             ],
             [
                 'id' => 0,
                 'office_id' => $params['office_id'],
-                'office_name' => $office['office_name'],
+                'office_name' => $office['name'],
                 'name' => '科室动态',
                 'type' => 0,
                 'url' => '/ksjs-ksdt',
@@ -91,7 +91,7 @@ class TechnicalOfficeColumnSetsController extends Controller
             [
                 'id' => 0,
                 'office_id' => $params['office_id'],
-                'office_name' => $office['office_name'],
+                'office_name' => $office['name'],
                 'name' => '科室介绍',
                 'type' => 0,
                 'url' => '/ksjs_detail',
