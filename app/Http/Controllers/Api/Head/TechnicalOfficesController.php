@@ -55,7 +55,7 @@ class TechnicalOfficesController extends Controller
             $where_arr = [1];
         }
 
-        $where = [];
+        $where = $office = [];
 
         if ($params['index'] != 'all') {
             $where[] = [
@@ -63,9 +63,25 @@ class TechnicalOfficesController extends Controller
             ];
         }
 
-        $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->orderBy('sort', 'asc')->get()->toArray();
+        if ($params['index'] == 'all') {
+            $office_0 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 0)->orderBy('sort', 'asc')->get()->toArray();
+            $office_0 = array_chunk($office_0, 8);
 
-        $office = array_chunk($office, 8);
+            $office_1 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 1)->orderBy('sort', 'asc')->get()->toArray();
+            $office_1 = array_chunk($office_1, 8);
+
+            $office_2 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 2)->orderBy('sort', 'asc')->get()->toArray();
+            $office_2 = array_chunk($office_2, 8);
+
+            $office['office_0'] = $office_0;
+            $office['office_1'] = $office_1;
+            $office['office_2'] = $office_2;
+            $office['index'] = $params['index'];
+        } else {
+            $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->orderBy('sort', 'asc')->get()->toArray();
+            $office['search'] = array_chunk($office, 8);
+            $office['index'] = $params['index'];
+        }
 
         return responder()->success($office);
     }
