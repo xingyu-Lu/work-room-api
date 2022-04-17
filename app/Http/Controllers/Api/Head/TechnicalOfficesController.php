@@ -220,7 +220,7 @@ class TechnicalOfficesController extends Controller
             ];
         }
 
-        $outpatient = TechnicalOfficeOutpatient::where('status', $where_arr)->where($where)->orderBy('office_id', 'asc')->orderBy('type', 'asc')->get();
+        $outpatient = TechnicalOfficeOutpatient::whereIn('status', $where_arr)->where($where)->orderBy('office_id', 'asc')->orderBy('type', 'asc')->get();
 
         return responder()->success($outpatient);
     }
