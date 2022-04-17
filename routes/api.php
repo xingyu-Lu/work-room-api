@@ -232,6 +232,9 @@ Route::namespace('Api\Head')->prefix('head')->group(function () {
         // 科室栏目
         Route::apiResource('offices/column', 'TechnicalOfficeHeadColumnsController');
 
+        // 科室设置
+        Route::apiResource('technicalOfficeSets', 'TechnicalOfficeSetsController');
+
         // 科室栏目设置
         Route::get('technicalOfficeColumnSets/list', 'TechnicalOfficeColumnSetsController@list')->name('technicalOfficeColumnSets.list'); 
         Route::get('technicalOfficeColumnSets/column_list', 'TechnicalOfficeColumnSetsController@column_list')->name('technicalOfficeColumnSets.column_list'); 

@@ -63,13 +63,32 @@ class TechnicalOfficeColumnSetsController extends Controller
 
         unset($value);
 
-        if ($office['name'] == '门诊部') {
+        if ($office['type'] == 2) {
             $insert_arr = [
                 [
                     'id' => 0,
                     'office_id' => $params['office_id'],
                     'office_name' => $office['name'],
-                    'name' => '门诊坐诊医生简介',
+                    'name' => '动态',
+                    'type' => 0,
+                    'url' => '/ksjs-ksdt',
+                ],
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '介绍',
+                    'type' => 0,
+                    'url' => '/ksjs_detail',
+                ],
+            ];
+        } elseif ($office['type'] == 1) {
+            $insert_arr = [
+                [
+                    'id' => 0,
+                    'office_id' => $params['office_id'],
+                    'office_name' => $office['name'],
+                    'name' => '医生简介',
                     'type' => 0,
                     'url' => '/ksjs-ksys',
                 ],
@@ -90,7 +109,7 @@ class TechnicalOfficeColumnSetsController extends Controller
                     'url' => '/ksjs_detail',
                 ],
             ];
-        } else {
+        } elseif ($office['type'] == 0) {
             $insert_arr = [
                 [
                     'id' => 0,
@@ -126,6 +145,70 @@ class TechnicalOfficeColumnSetsController extends Controller
                 ],
             ];
         }
+
+        // if ($office['name'] == '门诊部') {
+        //     $insert_arr = [
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '门诊坐诊医生简介',
+        //             'type' => 0,
+        //             'url' => '/ksjs-ksys',
+        //         ],
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '科室动态',
+        //             'type' => 0,
+        //             'url' => '/ksjs-ksdt',
+        //         ],
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '科室介绍',
+        //             'type' => 0,
+        //             'url' => '/ksjs_detail',
+        //         ],
+        //     ];
+        // } else {
+        //     $insert_arr = [
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '科室门诊',
+        //             'type' => 0,
+        //             'url' => '/ksmz',
+        //         ],
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '科室医生',
+        //             'type' => 0,
+        //             'url' => '/ksjs-ksys',
+        //         ],
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '科室动态',
+        //             'type' => 0,
+        //             'url' => '/ksjs-ksdt',
+        //         ],
+        //         [
+        //             'id' => 0,
+        //             'office_id' => $params['office_id'],
+        //             'office_name' => $office['name'],
+        //             'name' => '科室介绍',
+        //             'type' => 0,
+        //             'url' => '/ksjs_detail',
+        //         ],
+        //     ];
+        // }
 
         foreach ($insert_arr as $key => $value) {
             array_unshift($office_column_sets, $value);   
