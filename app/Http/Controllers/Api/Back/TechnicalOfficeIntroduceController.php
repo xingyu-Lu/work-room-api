@@ -25,7 +25,7 @@ class TechnicalOfficeIntroduceController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $office_introduces = TechnicalOfficeIntroduce::where($where)->paginate(10);
+        $office_introduces = TechnicalOfficeIntroduce::where($where)->orderBy('id', 'desc')->paginate(30);
 
         return responder()->success($office_introduces);
     }

@@ -28,7 +28,7 @@ class TechnicalOfficeOutpatientsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['technicaloffice_name'] . '%'];
         }
 
-        $outpatient = TechnicalOfficeOutpatient::where($where)->orderBy('office_id', 'asc')->orderBy('type', 'asc')->paginate(10);
+        $outpatient = TechnicalOfficeOutpatient::where($where)->orderBy('office_id', 'asc')->orderBy('type', 'asc')->paginate(30);
 
         return responder()->success($outpatient);
     }

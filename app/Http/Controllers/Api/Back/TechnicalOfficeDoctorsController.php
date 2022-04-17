@@ -26,7 +26,7 @@ class TechnicalOfficeDoctorsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $news = TechnicalOfficeDoctor::where($where)->orderBy('id', 'desc')->paginate(10);
+        $news = TechnicalOfficeDoctor::where($where)->orderBy('id', 'desc')->paginate(30);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);

@@ -35,7 +35,7 @@ class TechnicalOfficeColumnsController extends Controller
             $where[] = ['title', 'like', '%' . $params['title'] . '%'];
         }
 
-        $office_columns = TechnicalOfficeColumn::where($where)->orderBy('id', 'desc')->paginate(10);
+        $office_columns = TechnicalOfficeColumn::where($where)->orderBy('id', 'desc')->paginate(30);
 
         foreach ($office_columns as $key => $value) {
             $file = UploadFile::find($value['file_id']);

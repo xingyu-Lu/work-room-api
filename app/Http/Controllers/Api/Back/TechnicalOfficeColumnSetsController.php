@@ -53,7 +53,7 @@ class TechnicalOfficeColumnSetsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $office_column_sets = TechnicalOfficeColumnSet::where($where)->paginate(10);
+        $office_column_sets = TechnicalOfficeColumnSet::where($where)->where('id', 'desc')->paginate(30);
 
         return responder()->success($office_column_sets);
     }
