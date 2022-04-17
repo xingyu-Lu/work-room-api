@@ -48,13 +48,25 @@ class IndexsController extends Controller
         $data['rotates'] = $rotates;
 
         // 科室
-        $office_1 = TechnicalOffice::skip(0)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();
-        $office_2 = TechnicalOffice::skip(5)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();
-        $office_3 = TechnicalOffice::skip(10)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();        
+        // $office_1 = TechnicalOffice::skip(0)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();
+        // $office_2 = TechnicalOffice::skip(5)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();
+        // $office_3 = TechnicalOffice::skip(10)->whereIn('status', $where_arr)->orderBy('sort', 'asc')->take(5)->get();        
+        $office_0 = TechnicalOffice::whereIn('status', $where_arr)->where('type', 0)->orderBy('sort', 'asc')->get()->toArray();
+        $office_0 = array_chunk($office_0, 6);
 
-        $data['offices'][] = $office_1;
-        $data['offices'][] = $office_2;
-        $data['offices'][] = $office_3;
+        $office_1 = TechnicalOffice::whereIn('status', $where_arr)->where('type', 1)->orderBy('sort', 'asc')->get()->toArray();
+        $office_1 = array_chunk($office_1, 6);   
+
+        $office_2 = TechnicalOffice::whereIn('status', $where_arr)->where('type', 2)->orderBy('sort', 'asc')->get()->toArray();
+        $office_2 = array_chunk($office_2, 6);        
+
+        $data['offices_0'] = $office_0;
+        $data['offices_1'] = $office_1;
+        $data['offices_2'] = $office_2;
+
+        // $data['offices'][] = $office_1;
+        // $data['offices'][] = $office_2;
+        // $data['offices'][] = $office_3;
 
         // 专家
         $expert = Expert::skip(0)->whereIn('status', $where_arr)->take(5)->get();

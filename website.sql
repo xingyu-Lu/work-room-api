@@ -223,6 +223,7 @@ CREATE TABLE `syy_technical_offices` (
   `phone` varchar(50) NOT NULL DEFAULT '' COMMENT '科室电话',
   `index` varchar(10) NOT NULL DEFAULT '' COMMENT '科室索引',
   `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  `type` tinyint(3) NOT NULL DEFAULT 0 COMMENT '类型 0：临床部门 1：医技部门 2：保障部门',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
