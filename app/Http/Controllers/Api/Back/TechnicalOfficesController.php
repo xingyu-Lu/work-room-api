@@ -24,7 +24,7 @@ class TechnicalOfficesController extends Controller
             $where[] = ['name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $offices = TechnicalOffice::where($where)->orderBy('id', 'desc')->paginate(100);
+        $offices = TechnicalOffice::where($where)->whereIn('status', [0,1])->orderBy('id', 'desc')->paginate(100);
 
         return responder()->success($offices);
     }

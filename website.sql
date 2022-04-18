@@ -266,7 +266,7 @@ CREATE TABLE `syy_technical_office_doctors` (
   `office_name` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '医生名字',
   `professional` varchar(50) NOT NULL DEFAULT '' COMMENT '职称',
-  `excel` varchar(100) NOT NULL DEFAULT '' COMMENT '擅长',
+  `excel` varchar(300) NOT NULL DEFAULT '' COMMENT '擅长',
   `content` text NOT NULL COMMENT '医生介绍',
   `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见；2：删除',
