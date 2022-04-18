@@ -16,7 +16,9 @@ class StaffsController extends Controller
 {
     public function staff_list()
     {
-        $staff = Staff::where('status', 1)->orderBy('id', 'desc')->get();
+        $staff_id_arr = TechnicalOfficeMember::pluck('staff_id');
+
+        $staff = Staff::where('status', 1)->whereNotIn('id', $staff_id_arr)->orderBy('id', 'desc')->get();
 
         return responder()->success($staff);
     }
