@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Back;
 
+use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\TechnicalOffice;
@@ -43,6 +44,12 @@ class TechnicalOfficeMembersController extends Controller
     public function store(Request $request)
     {
         $params = $request->all();
+
+        $member = TechnicalOfficeMember::where('staff_id', $params['staff_id'])->first();
+
+        if ($member) {
+            throw new BaseException(['msg' => '该成员已添加']);
+        }
 
         $office = TechnicalOffice::find($params['office_id']);
 
