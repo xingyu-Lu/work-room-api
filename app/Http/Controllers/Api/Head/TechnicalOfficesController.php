@@ -181,7 +181,7 @@ class TechnicalOfficesController extends Controller
         }
         unset($value);
 
-        $doctor = array_chunk($doctor, 6);
+        $doctor = array_chunk($doctor, 4);
 
         return responder()->success($doctor);
     }
