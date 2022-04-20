@@ -44,13 +44,13 @@ class TechnicalOfficeSetsController extends Controller
                     'type' => $office['type'],
                     'url' => '/kssz-ksdt-index?id=',
                 ],
-                [
-                    'office_id' => $office['id'],
-                    'office_name' => $office['name'],
-                    'name' => '科室门诊',
-                    'type' => $office['type'],
-                    'url' => '/kssz-outpatient-index?id=',
-                ],
+                // [
+                //     'office_id' => $office['id'],
+                //     'office_name' => $office['name'],
+                //     'name' => '科室门诊',
+                //     'type' => $office['type'],
+                //     'url' => '/kssz-outpatient-index?id=',
+                // ],
                 [
                     'office_id' => $office['id'],
                     'office_name' => $office['name'],
