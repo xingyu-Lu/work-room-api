@@ -96,7 +96,7 @@ class IndexsController extends Controller
         }
         $data['news_xw'][] = $news_0_0;
 
-        $news_0_1 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(2)->take(2)->get();
+        $news_0_1 = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(2)->take(4)->get();
         foreach ($news_0_1 as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
