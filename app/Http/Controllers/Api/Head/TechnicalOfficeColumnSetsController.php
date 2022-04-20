@@ -214,7 +214,7 @@ class TechnicalOfficeColumnSetsController extends Controller
             array_unshift($office_column_sets, $value);   
         }
 
-        $office_column_sets = array_chunk($office_column_sets, 7);
+        $office_column_sets = array_chunk($office_column_sets, 6);
 
         return responder()->success($office_column_sets);
     }
