@@ -37,7 +37,7 @@ class TechnicalOfficesController extends Controller
             $where_arr = [1];
         }
 
-        $office = TechnicalOffice::whereIn('status', $where_arr)->orderBy('sort', 'asc')->get();
+        $office = TechnicalOffice::whereIn('status', $where_arr)->orderBy('index', 'asc')->get();
 
         return responder()->success($office);
     }
@@ -64,13 +64,13 @@ class TechnicalOfficesController extends Controller
         }
 
         if ($params['index'] == 'all') {
-            $office_0 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 0)->orderBy('sort', 'asc')->get()->toArray();
+            $office_0 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 0)->orderBy('index', 'asc')->get()->toArray();
             $office_0 = array_chunk($office_0, 6);
 
-            $office_1 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 1)->orderBy('sort', 'asc')->get()->toArray();
+            $office_1 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 1)->orderBy('index', 'asc')->get()->toArray();
             $office_1 = array_chunk($office_1, 6);
 
-            $office_2 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 2)->orderBy('sort', 'asc')->get()->toArray();
+            $office_2 = TechnicalOffice::whereIn('status', $where_arr)->where($where)->where('type', 2)->orderBy('index', 'asc')->get()->toArray();
             $office_2 = array_chunk($office_2, 6);
 
             $office['office_0'] = $office_0;
@@ -78,7 +78,7 @@ class TechnicalOfficesController extends Controller
             $office['office_2'] = $office_2;
             $office['index'] = $params['index'];
         } else {
-            $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->orderBy('sort', 'asc')->get()->toArray();
+            $office = TechnicalOffice::whereIn('status', $where_arr)->where($where)->orderBy('index', 'asc')->get()->toArray();
             $office['search'] = array_chunk($office, 6);
             $office['index'] = $params['index'];
         }
