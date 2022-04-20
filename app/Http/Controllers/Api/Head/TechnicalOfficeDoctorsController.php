@@ -81,7 +81,7 @@ class TechnicalOfficeDoctorsController extends Controller
             'professional' => $params['professional'] ?? '',
             'excel' => $params['excel'] ?? '',
             'content' => $params['content'] ?? '',
-            'sort' => $params['sort'],
+            'sort' => $params['sort'] ?? 0,
             'status' => 0,
         ];
 
@@ -129,7 +129,7 @@ class TechnicalOfficeDoctorsController extends Controller
             'professional' => $params['professional'] ?? '',
             'excel' => $params['excel'] ?? '',
             'content' => $params['content'] ?? '',
-            'sort' => $params['sort'],
+            'sort' => $params['sort'] ?? 0,
             'status' => 0,
         ];
 
