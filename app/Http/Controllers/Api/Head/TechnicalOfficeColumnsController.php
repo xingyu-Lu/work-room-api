@@ -93,6 +93,7 @@ class TechnicalOfficeColumnsController extends Controller
             'file_id' => $params['img'] ?? 0,
             'content' => $params['content'] ?? '',
             'release_time' => strtotime($params['release_time']),
+            'sort' => $params['sort'] ?? 0,
         ];
 
         TechnicalOfficeColumn::create($insert_data);
@@ -142,6 +143,7 @@ class TechnicalOfficeColumnsController extends Controller
             'file_id' => $params['img'] ?? 0,
             'content' => $params['content'] ?? '',
             'release_time' => strtotime($params['release_time']),
+            'sort' => $params['sort'] ?? 0,
         ];
 
         TechnicalOfficeColumn::updateOrCreate(['id' => $id], $update_data);

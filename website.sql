@@ -378,6 +378,7 @@ CREATE TABLE `syy_technical_office_columns` (
   `content` text not null comment '内容',
   `release_time` int(11) NOT NULL DEFAULT 0 COMMENT '发布时间',
   `num` int(11) NOT NULL DEFAULT 0 COMMENT '访问次数',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
   `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见；2：删除',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',

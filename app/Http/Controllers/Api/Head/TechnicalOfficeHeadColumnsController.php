@@ -88,7 +88,7 @@ class TechnicalOfficeHeadColumnsController extends Controller
 
             unset($value);
 
-            $office_columns = array_chunk($office_columns, 4);
+            $office_columns = array_chunk($office_columns, 6);
 
             $office_columns = new LengthAwarePaginator($office_columns, $total, $perPage, $current_page, [
                 'path' => $path,
