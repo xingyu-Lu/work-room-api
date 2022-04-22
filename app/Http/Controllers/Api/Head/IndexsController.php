@@ -109,7 +109,7 @@ class IndexsController extends Controller
         $data['news_xw'][] = $news_0_1;
 
         // 医院新闻轮播图
-        $news_rotate = News::where('type', 0)->whereIn('status', $where_arr)->orderBy('is_recommend', 'desc')->orderBy('id', 'desc')->skip(0)->take(4)->get();
+        $news_rotate = News::where('type', 0)->where('is_recommend', 1)->whereIn('status', $where_arr)->orderBy('id', 'desc')->skip(0)->take(4)->get();
         foreach ($news_rotate as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';
