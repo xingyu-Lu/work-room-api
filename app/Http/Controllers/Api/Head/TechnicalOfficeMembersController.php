@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Head;
 
+use App\Exceptions\BaseException;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\TechnicalOffice;
