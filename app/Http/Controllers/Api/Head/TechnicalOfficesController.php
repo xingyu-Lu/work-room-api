@@ -230,7 +230,7 @@ class TechnicalOfficesController extends Controller
             'yq_type', '=', $params['yq_type']
         ];
 
-        if (isset($params['id']) && $params['id']) {
+        if (isset($params['id']) && $params['id'] && $params['id'] != 39) {
             $where[] = [
                 'office_id', '=', $params['id']
             ];

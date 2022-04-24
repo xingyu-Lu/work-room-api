@@ -71,7 +71,7 @@ class TechnicalOfficeHeadColumnsController extends Controller
 
             $total = $office_columns->count();
 
-            $office_columns = $office_columns->orderBy('id', 'desc')->offset(($current_page-1)*$perPage)->limit($perPage)->get()->toArray();
+            $office_columns = $office_columns->orderBy('sort', 'desc')->orderBy('id', 'desc')->offset(($current_page-1)*$perPage)->limit($perPage)->get()->toArray();
 
             foreach ($office_columns as $key => &$value) {
                 $file = UploadFile::find($value['file_id']);
