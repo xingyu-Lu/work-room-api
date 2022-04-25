@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '前台获取科室详情bug修改等等',
+                'timestamp' => '2022-04-25',
+            ],
+            [
                 'content' => '整站文字标题字号颜色优化，门诊部门诊信息调整，科室栏目加排序等等',
                 'timestamp' => '2022-04-24',
             ],
