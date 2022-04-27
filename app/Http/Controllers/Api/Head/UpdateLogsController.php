@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '图片上传大小限制1M等等',
+                'timestamp' => '2022-04-28',
+            ],
+            [
                 'content' => '整站wangeditor编辑器行高1.6改为1.5，职称优化，主任副主任医师同步专家，健康科普类的文章可同步健康促进等等',
                 'timestamp' => '2022-04-27',
             ],
