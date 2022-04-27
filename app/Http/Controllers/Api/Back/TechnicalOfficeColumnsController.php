@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\PatientService;
 use App\Models\TechnicalOffice;
 use App\Models\TechnicalOfficeColumn;
 use App\Models\TechnicalOfficeColumnSet;
@@ -155,6 +156,27 @@ class TechnicalOfficeColumnsController extends Controller
         $status = $params['status'];
 
         TechnicalOfficeColumn::updateOrCreate(['id' => $id], ['status' => $status]);
+
+        return responder()->success();
+    }
+
+    public function healthPromotion(Request $request)
+    {
+        $params = $request->all();
+
+        foreach ($params['multipleSelection'] as $key => $value) {
+            $syn_data = [
+                'office_id' => $value['office_id'],
+                'office_name' => $value['office_name'],
+                'title' => $value['title'],
+                'content' => $value['content'],
+                'release_time' => strtotime($value['release_time']),
+                'status' => $value['status'],
+                'type' => 9,
+            ];
+
+            PatientService::updateOrCreate(['office_column_id' => $value['id']], $syn_data);
+        }
 
         return responder()->success();
     }

@@ -99,6 +99,7 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('technicalOfficeColumnSets', 'TechnicalOfficeColumnSetsController'); 
 
         // 科室栏目
+        Route::put('technicalOfficeColumns/healthPromotion', 'TechnicalOfficeColumnsController@healthPromotion')->name('technicalOfficeColumns.healthPromotion');
         Route::put('technicalOfficeColumns/status', 'TechnicalOfficeColumnsController@status')->name('technicalOfficeColumns.status');
         Route::apiResource('technicalOfficeColumns', 'TechnicalOfficeColumnsController');        
 

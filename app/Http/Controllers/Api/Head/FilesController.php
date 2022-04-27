@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class FilesController extends Controller
 {
@@ -47,6 +48,12 @@ class FilesController extends Controller
 
         if (!in_array($file->extension(), $allow_file_extension)) {
             throw new BaseException(['msg' => '不能上传' . $file->extension() . '格式的文件']);
+        }
+
+        if (in_array($file->extension(), ['jpg', 'jpeg', 'png'])) {
+            $img = Image::make($file);
+            $img->insert(public_path() . '/suiying.png', 'bottom-right');
+            $img->save();
         }
 
         if (round($file->getSize()/1024/1024, 2) > 200) {

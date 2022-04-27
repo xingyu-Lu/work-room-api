@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Expert;
 use App\Models\TechnicalOffice;
 use App\Models\TechnicalOfficeDoctor;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Overtrue\Pinyin\Pinyin;
 
 class TechnicalOfficeDoctorsController extends Controller
 {
@@ -26,7 +28,7 @@ class TechnicalOfficeDoctorsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $news = TechnicalOfficeDoctor::where($where)->orderBy('id', 'desc')->paginate(30);
+        $news = TechnicalOfficeDoctor::where($where)->orderBy('id', 'desc')->orderBy('status', 'desc')->paginate(30);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
@@ -139,6 +141,29 @@ class TechnicalOfficeDoctorsController extends Controller
         $status = $params['status'];
 
         TechnicalOfficeDoctor::updateOrCreate(['id' => $id], ['status' => $status]);
+
+        // 如果是专家同步到专家
+        $doctor = TechnicalOfficeDoctor::find($id);
+        if (in_array($doctor['professional'], ['主任医师', '副主任医师'])) {
+            $pinyin = new Pinyin();
+            $s = mb_substr($doctor['name'], 0, 1, 'utf-8');
+            $firstChar = $pinyin->abbr($s);
+
+            $syn_data = [
+                'office_id' => $doctor['office_id'],
+                'office_name' => $doctor['office_name'],
+                'file_id' => $doctor['file_id'],
+                'office_doctor_id' => $id,
+                'name' => $doctor['name'],
+                'professional' => $doctor['professional'],
+                'excel' => $doctor['excel'],
+                'content' => $doctor['content'],
+                'index' => $firstChar,
+                'status' => $doctor['status'],
+            ];
+
+            Expert::updateOrCreate(['office_doctor_id' => $id], $syn_data);
+        }
 
         return responder()->success();
     }
