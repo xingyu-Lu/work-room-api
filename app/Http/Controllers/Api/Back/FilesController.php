@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class FilesController extends Controller
 {
@@ -36,6 +37,12 @@ class FilesController extends Controller
         $basket = $params['basket'];
 
         $file = $request->file('file');
+
+        if (in_array($file->extension(), ['jpg', 'jpeg', 'png'])) {
+            $img = Image::make($file);
+            $img->insert(public_path() . '/suiying.png', 'bottom-right');
+            $img->save();
+        }
 
         // 存储文件
         $path = $file->storeAs($basket . '/' . date('Ym'), time() . '-' . $file->getClientOriginalName(), 'public');
