@@ -144,7 +144,8 @@ class TechnicalOfficeDoctorsController extends Controller
 
         // 如果是专家同步到专家
         $doctor = TechnicalOfficeDoctor::find($id);
-        if (in_array($doctor['professional'], ['主任医师', '副主任医师'])) {
+        $expert = Expert::where('name', $doctor['name'])->first();
+        if (in_array($doctor['professional'], ['主任医师', '副主任医师']) && !$expert && strpos($doctor['office_name'], '门诊') === false) {
             $pinyin = new Pinyin();
             $s = mb_substr($doctor['name'], 0, 1, 'utf-8');
             $firstChar = $pinyin->abbr($s);
