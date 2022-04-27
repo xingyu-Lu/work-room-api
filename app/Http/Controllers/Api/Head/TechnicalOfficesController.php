@@ -127,7 +127,7 @@ class TechnicalOfficesController extends Controller
             }
             $value['img_url'] = $url;
 
-            $value['strip_content'] = trim(mb_substr(strip_tags($value['content']), 0, 100), '&nbsp;');
+            $value['strip_content'] = str_replace('&nbsp;', '', mb_substr(strip_tags($value['content']), 0, 100));
         }
 
         return responder()->success($dynamic);
