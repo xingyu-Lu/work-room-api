@@ -69,7 +69,7 @@ class IndexsController extends Controller
         // $data['offices'][] = $office_3;
 
         // 专家
-        $expert = Expert::skip(0)->whereIn('status', $where_arr)->take(5)->get();
+        $expert = Expert::skip(0)->whereIn('status', $where_arr)->orderBy('index', 'asc')->take(5)->get();
         foreach ($expert as $key => $value) {
             $file = UploadFile::find($value['file_id']);
             $url = '';

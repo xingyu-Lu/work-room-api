@@ -46,7 +46,7 @@ class ExpertsController extends Controller
 
         $total = $expert->count();
 
-        $expert = $expert->orderBy('sort', 'asc')->offset(($current_page-1)*$perPage)->limit($perPage)->get()->toArray();
+        $expert = $expert->orderBy('index', 'asc')->offset(($current_page-1)*$perPage)->limit($perPage)->get()->toArray();
 
         foreach ($expert as $key => &$value) {
             $file = UploadFile::find($value['file_id']);
