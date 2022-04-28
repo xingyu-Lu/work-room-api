@@ -28,7 +28,7 @@ class TechnicalOfficeDynamicsController extends Controller
             $where[] = ['office_name', 'like', '%' . $params['office_name'] . '%'];
         }
 
-        $news = TechnicalOfficeDynamic::where($where)->orderBy('id', 'desc')->paginate(30);
+        $news = TechnicalOfficeDynamic::where($where)->orderBy('status', 'asc')->orderBy('id', 'desc')->paginate(30);
 
         foreach ($news as $key => $value) {
             $file = UploadFile::find($value['file_id']);
