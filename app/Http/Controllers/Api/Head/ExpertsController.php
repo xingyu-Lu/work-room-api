@@ -23,7 +23,7 @@ class ExpertsController extends Controller
 
         //分页条件
         $current_page = $params['page'] ?? 1;
-        $perPage = $params['page_size'] ?? 24;
+        $perPage = 24;
         $path = Paginator::resolveCurrentPath();
 
         $where_arr = [];
