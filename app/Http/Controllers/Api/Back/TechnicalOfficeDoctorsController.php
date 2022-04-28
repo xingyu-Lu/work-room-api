@@ -142,28 +142,34 @@ class TechnicalOfficeDoctorsController extends Controller
 
         TechnicalOfficeDoctor::updateOrCreate(['id' => $id], ['status' => $status]);
 
-        // 如果是专家同步到专家
-        $doctor = TechnicalOfficeDoctor::find($id);
-        $expert = Expert::where('name', $doctor['name'])->first();
-        if (in_array($doctor['professional'], ['主任医师', '副主任医师']) && !$expert && strpos($doctor['office_name'], '门诊') === false) {
-            $pinyin = new Pinyin();
-            $s = mb_substr($doctor['name'], 0, 1, 'utf-8');
-            $firstChar = $pinyin->abbr($s);
+        return responder()->success();
+    }
 
-            $syn_data = [
-                'office_id' => $doctor['office_id'],
-                'office_name' => $doctor['office_name'],
-                'file_id' => $doctor['file_id'],
-                'office_doctor_id' => $id,
-                'name' => $doctor['name'],
-                'professional' => $doctor['professional'],
-                'excel' => $doctor['excel'],
-                'content' => $doctor['content'],
-                'index' => $firstChar,
-                'status' => $doctor['status'],
-            ];
+    public function synExpert(){
+        $doctors = TechnicalOfficeDoctor::where('status', 1)->get()->toArray();
 
-            Expert::updateOrCreate(['office_doctor_id' => $id], $syn_data);
+        foreach ($doctors as $key => $value) {
+            $expert = Expert::where('name', $value['name'])->first();
+            if (in_array($value['professional'], ['主任医师', '副主任医师']) && (!$expert || ($expert && $expert['office_doctor_id'] == $value['id'])) && strpos($value['office_name'], '门诊') === false) {
+                $pinyin = new Pinyin();
+                $s = mb_substr($value['name'], 0, 1, 'utf-8');
+                $firstChar = $pinyin->abbr($s);
+
+                $syn_data = [
+                    'office_id' => $value['office_id'],
+                    'office_name' => $value['office_name'],
+                    'file_id' => $value['file_id'],
+                    'office_doctor_id' => $value['id'],
+                    'name' => $value['name'],
+                    'professional' => $value['professional'],
+                    'excel' => $value['excel'],
+                    'content' => $value['content'],
+                    'index' => $firstChar,
+                    'status' => $value['status'],
+                ];
+
+                Expert::updateOrCreate(['office_doctor_id' => $value['id']], $syn_data);
+            }
         }
 
         return responder()->success();

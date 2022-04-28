@@ -112,6 +112,7 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
         Route::apiResource('technicalOfficeDynamics', 'TechnicalOfficeDynamicsController'); 
 
         // 科室医生
+        Route::put('technicalOfficeDoctors/synExpert', 'TechnicalOfficeDoctorsController@synExpert')->name('technicalOfficeDoctors.synExpert');
         Route::put('technicalOfficeDoctors/status', 'TechnicalOfficeDoctorsController@status')->name('technicalOfficeDoctors.status');
         Route::apiResource('technicalOfficeDoctors', 'TechnicalOfficeDoctorsController');
 
