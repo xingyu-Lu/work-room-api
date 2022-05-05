@@ -16,6 +16,10 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
+                'content' => '水印图片优化等等',
+                'timestamp' => '2022-05-05',
+            ],
+            [
                 'content' => '图片上传大小限制1M，同步专家优化，日常维护审核，后台科室动态、介绍、栏目排序优化等等',
                 'timestamp' => '2022-04-28',
             ],
