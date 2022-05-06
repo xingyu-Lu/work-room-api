@@ -16,7 +16,7 @@ class UpdateLogsController extends Controller
     {
         $data = [
             [
-                'content' => '门诊信息改版等等',
+                'content' => '门诊信息改版，域名注册开始，备份数据库shell脚本等等',
                 'timestamp' => '2022-05-05',
             ],
             [
