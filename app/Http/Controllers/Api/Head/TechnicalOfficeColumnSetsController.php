@@ -111,14 +111,14 @@ class TechnicalOfficeColumnSetsController extends Controller
             ];
         } elseif ($office['type'] == 0) {
             $insert_arr = [
-                [
-                    'id' => 0,
-                    'office_id' => $params['office_id'],
-                    'office_name' => $office['name'],
-                    'name' => '科室门诊',
-                    'type' => 0,
-                    'url' => '/ksmz',
-                ],
+                // [
+                //     'id' => 0,
+                //     'office_id' => $params['office_id'],
+                //     'office_name' => $office['name'],
+                //     'name' => '科室门诊',
+                //     'type' => 0,
+                //     'url' => '/ksmz',
+                // ],
                 [
                     'id' => 0,
                     'office_id' => $params['office_id'],
