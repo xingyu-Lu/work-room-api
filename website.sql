@@ -295,6 +295,16 @@ CREATE TABLE `syy_technical_office_outpatients` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室门诊';
 
+DROP TABLE IF EXISTS `syy_technical_office_outpatient_news`;
+CREATE TABLE `syy_technical_office_outpatient_news` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT, 
+  `content` text not null comment '文章内容',
+  `status` tinyint(1) unsigned not null default '0' comment '0:待审核院内可见；1:院内外都可见',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='科室门诊新';
+
 DROP TABLE IF EXISTS `syy_technical_office_features`;
 CREATE TABLE `syy_technical_office_features` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

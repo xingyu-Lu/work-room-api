@@ -10,6 +10,7 @@ use App\Models\TechnicalOfficeFeature;
 use App\Models\TechnicalOfficeHealthScience;
 use App\Models\TechnicalOfficeIntroduce;
 use App\Models\TechnicalOfficeOutpatient;
+use App\Models\TechnicalOfficeOutpatientNew;
 use App\Models\TechnicalOfficePic;
 use App\Models\UploadFile;
 use Illuminate\Http\Request;
@@ -213,8 +214,6 @@ class TechnicalOfficesController extends Controller
 
     public function ksmz(Request $request)
     {
-        $params = $request->all();
-
         $where_arr = [];
 
         $user = auth('h-api')->user();
@@ -223,22 +222,37 @@ class TechnicalOfficesController extends Controller
         } else {
             $where_arr = [1];
         }
+        
+        $technical_office_outpatient_new = TechnicalOfficeOutpatientNew::whereIn('status', $where_arr)->first();
 
-        $where = [];
+        return responder()->success($technical_office_outpatient_new);
 
-        $where[] = [
-            'yq_type', '=', $params['yq_type']
-        ];
+        // $params = $request->all();
 
-        if (isset($params['id']) && $params['id'] && $params['id'] != 39) {
-            $where[] = [
-                'office_id', '=', $params['id']
-            ];
-        }
+        // $where_arr = [];
 
-        $outpatient = TechnicalOfficeOutpatient::whereIn('status', $where_arr)->where($where)->orderBy('office_id', 'asc')->orderBy('type', 'asc')->get();
+        // $user = auth('h-api')->user();
+        // if ($user) {
+        //     $where_arr = [0, 1];    
+        // } else {
+        //     $where_arr = [1];
+        // }
 
-        return responder()->success($outpatient);
+        // $where = [];
+
+        // $where[] = [
+        //     'yq_type', '=', $params['yq_type']
+        // ];
+
+        // if (isset($params['id']) && $params['id'] && $params['id'] != 39) {
+        //     $where[] = [
+        //         'office_id', '=', $params['id']
+        //     ];
+        // }
+
+        // $outpatient = TechnicalOfficeOutpatient::whereIn('status', $where_arr)->where($where)->orderBy('office_id', 'asc')->orderBy('type', 'asc')->get();
+
+        // return responder()->success($outpatient);
     }
 
     public function tsyl(Request $request)

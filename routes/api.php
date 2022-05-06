@@ -118,7 +118,11 @@ Route::namespace('Api\Back')->prefix('back')->group(function () {
 
         // 科室门诊
         Route::put('technicalOfficeOutpatients/status', 'TechnicalOfficeOutpatientsController@status')->name('technicalOfficeOutpatients.status');
-        Route::apiResource('technicalOfficeOutpatients', 'TechnicalOfficeOutpatientsController');        
+        Route::apiResource('technicalOfficeOutpatients', 'TechnicalOfficeOutpatientsController');
+
+        // 科室门诊新
+        Route::put('technicalOfficeOutpatientNews/status', 'TechnicalOfficeOutpatientNewsController@status')->name('technicalOfficeOutpatientNews.status');
+        Route::apiResource('technicalOfficeOutpatientNews', 'TechnicalOfficeOutpatientNewsController');        
 
         // 科室特色医疗
         Route::put('technicalOfficeFeatures/status', 'TechnicalOfficeFeaturesController@status')->name('technicalOfficeFeatures.status');
