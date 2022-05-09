@@ -29,7 +29,7 @@ class PatientServicesController extends Controller
         if (in_array($params['type'], [0,1,5,6,7])) {
             $service = PatientService::whereIn('status', $where_arr)->where('type', $params['type'])->first();
         } else {
-            $service = PatientService::whereIn('status', $where_arr)->where('type', $params['type'])->paginate(10);
+            $service = PatientService::whereIn('status', $where_arr)->where('type', $params['type'])->orderBy('id', 'desc')->paginate(10);
         }
 
         return responder()->success($service);
