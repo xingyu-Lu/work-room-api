@@ -37,7 +37,7 @@ class SearchsController extends Controller
         if ($type == 0) {
             $search = News::whereIn('status', $where_arr)->where('type', 0)->where(function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')->orWhere('content', 'like', '%' . $keyword . '%');
-            })->paginate(10);
+            })->orderBy('id', 'desc')->paginate(10);
 
             foreach ($search as $key => $value) {
                 $value['url'] = 'yyxw_detail?id=' . $value['id'];
@@ -48,7 +48,7 @@ class SearchsController extends Controller
         if ($type == 1) {
             $search = News::whereIn('status', $where_arr)->where('type', 1)->where(function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')->orWhere('content', 'like', '%' . $keyword . '%');
-            })->paginate(10);
+            })->orderBy('id', 'desc')->paginate(10);
             foreach ($search as $key => $value) {
                 $value['url'] = 'yygg_detail?id=' . $value['id'];
             }
@@ -58,7 +58,7 @@ class SearchsController extends Controller
         if ($type == 2) {
             $search = Expert::whereIn('status', $where_arr)->where(function ($query) use ($keyword) {
                 $query->where('name', 'like', '%' . $keyword . '%')->orWhere('excel', 'like', '%' . $keyword . '%')->orWhere('content', 'like', '%' . $keyword . '%');
-            })->paginate(10);
+            })->orderBy('id', 'desc')->paginate(10);
             foreach ($search as $key => $value) {
                 $value['url'] = 'zjjs_detail?id=' . $value['id'];
             }
@@ -68,7 +68,7 @@ class SearchsController extends Controller
         if ($type == 3) {
             $search = Job::whereIn('status', $where_arr)->where('type', 0)->where(function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')->orWhere('content', 'like', '%' . $keyword . '%');
-            })->paginate(10);
+            })->orderBy('id', 'desc')->paginate(10);
             foreach ($search as $key => $value) {
                 $value['url'] = 'zpxx_detail?id=' . $value['id'];
             }
