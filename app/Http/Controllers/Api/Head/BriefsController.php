@@ -121,6 +121,11 @@ class BriefsController extends Controller
             $value['img_url'] = $url;
         }
         unset($value);
+        $history_leader_img_arr = [];
+        // foreach ($history_leader as $key => $value) {
+        //     $history_leader_img_arr[$value['id']] = $value['img_url'];
+        // }
+        $history_leader_img_arr = array_column($history_leader, 'img_url');
 
         $history_leader = array_chunk($history_leader, 4);
 
@@ -135,12 +140,22 @@ class BriefsController extends Controller
             $value['img_url'] = $url;
         }
         unset($value);
+        $history_pic_img_arr = [];
+        // foreach ($history_pic as $key => $value) {
+        //     $history_pic_img_arr[$value['id']] = $value['img_url'];
+        // }
+        $history_pic_img_arr = array_column($history_pic, 'img_url');
 
         $history_pic = array_chunk($history_pic, 4);
 
         $data['history'] = $history;
         $data['history_leader'] = $history_leader;
         $data['history_pic'] = $history_pic;
+
+        $data['src_list'] = [
+            'history_leader' => $history_leader_img_arr,
+            'history_pic' => $history_pic_img_arr
+        ];
 
         return responder()->success($data);
     }
