@@ -84,13 +84,13 @@ class PatientServicesController extends Controller
     {
         $params = $request->all();
 
-        if (in_array($params['type'], [0, 1, 5, 6, 7])) {
-             $patient = PatientService::where('type', $params['type'])->first();
+        // if (in_array($params['type'], [0, 1, 5, 6, 7])) {
+        //      $patient = PatientService::where('type', $params['type'])->first();
 
-            if ($patient) {
-                throw new BaseException(['msg' => '已添加，不可新增']);
-            }
-        }
+        //     if ($patient) {
+        //         throw new BaseException(['msg' => '已添加，不可新增']);
+        //     }
+        // }
 
         if (empty($params['title'])) {
             $params['title'] = '';
