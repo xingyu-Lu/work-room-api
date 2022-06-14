@@ -3,5 +3,5 @@
 	您好，您的验证码:{{ $code }}，请勿泄露。 
 
 Thanks,<br>
-宜宾市第三人民医院
+名医工作室
 @endcomponent
