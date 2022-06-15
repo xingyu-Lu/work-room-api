@@ -50,11 +50,11 @@ class FilesController extends Controller
             throw new BaseException(['msg' => '不能上传' . $file->extension() . '格式的文件']);
         }
 
-        if (in_array($file->extension(), ['jpg', 'jpeg', 'png'])) {
-            $img = Image::make($file);
-            $img->insert(public_path() . '/suiying.png', 'bottom-right');
-            $img->save();
-        }
+        // if (in_array($file->extension(), ['jpg', 'jpeg', 'png'])) {
+        //     $img = Image::make($file);
+        //     $img->insert(public_path() . '/suiying.png', 'bottom-right');
+        //     $img->save();
+        // }
 
         if (round($file->getSize()/1024/1024, 2) > 200) {
             throw new BaseException(['msg' => '上传文件过大']);
