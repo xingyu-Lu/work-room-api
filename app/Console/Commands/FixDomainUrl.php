@@ -77,13 +77,13 @@ class FixDomainUrl extends Command
         }
 
         // 领导团队新
-        $leaderNews = LeaderNew::get()->toArray();
-        foreach ($leaderNews as $key => $value) {
-            $content = strtr($value['content'], $replace_arr);
-            $leaderNew = LeaderNew::find($value['id']);
-            $leaderNew->content = $content;
-            $leaderNew->save();
-        }
+        // $leaderNews = LeaderNew::get()->toArray();
+        // foreach ($leaderNews as $key => $value) {
+        //     $content = strtr($value['content'], $replace_arr);
+        //     $leaderNew = LeaderNew::find($value['id']);
+        //     $leaderNew->content = $content;
+        //     $leaderNew->save();
+        // }
 
         // 医院文化
         $cultures = Culture::get()->toArray();
