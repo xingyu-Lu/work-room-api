@@ -285,7 +285,11 @@ class StaffsController extends Controller
             $upload_file = UploadFile::find($value['file_id']);
             $url = '';
             if ($upload_file) {
-                $url = Storage::disk('public')->url($upload_file['file_url']);
+                if ($upload_file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($upload_file['file_url']);
+                } elseif ($upload_file['storage'] == 1) {
+                    $url = $upload_file['file_url'];
+                }
             }
             $value['file_url'] = $url;
         }

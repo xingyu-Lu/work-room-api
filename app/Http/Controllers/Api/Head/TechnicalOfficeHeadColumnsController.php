@@ -50,7 +50,11 @@ class TechnicalOfficeHeadColumnsController extends Controller
                 $file = UploadFile::find($value['file_id']);
                 $url = '';
                 if ($file) {
-                    $url = Storage::disk('public')->url($file['file_url']);
+                    if ($file['storage'] == 0) {
+                        $url = Storage::disk('public')->url($file['file_url']);
+                    } elseif ($file['storage'] == 1) {
+                        $url = $file['file_url'];
+                    }
                 }
                 $value['url'] = $url;
 
@@ -77,7 +81,11 @@ class TechnicalOfficeHeadColumnsController extends Controller
                 $file = UploadFile::find($value['file_id']);
                 $url = '';
                 if ($file) {
-                    $url = Storage::disk('public')->url($file['file_url']);
+                    if ($file['storage'] == 0) {
+                        $url = Storage::disk('public')->url($file['file_url']);
+                    } elseif ($file['storage'] == 1) {
+                        $url = $file['file_url'];
+                    }
                 }
                 $value['url'] = $url;
 
@@ -126,7 +134,11 @@ class TechnicalOfficeHeadColumnsController extends Controller
         $file = UploadFile::find($column['file_id']);
         $url = '';
         if ($file) {
-            $url = Storage::disk('public')->url($file['file_url']);
+            if ($file['storage'] == 0) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } elseif ($file['storage'] == 1) {
+                $url = $file['file_url'];
+            }
         }
         $column['url'] = $url;
 

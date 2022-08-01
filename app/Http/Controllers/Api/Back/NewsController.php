@@ -33,7 +33,11 @@ class NewsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['url'] = $url;
         }
@@ -98,7 +102,11 @@ class NewsController extends Controller
         $url = '';
 
         if ($file) {
-            $url = Storage::disk('public')->url($file['file_url']);
+            if ($file['storage'] == 0) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } elseif ($file['storage'] == 1) {
+                $url = $file['file_url'];
+            }
         }
 
         $news->url = $url;

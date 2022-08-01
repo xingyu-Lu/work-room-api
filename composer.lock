@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c5f3a163b0beb5764e020b104771dea",
+    "content-hash": "e6d70cbc19539dc375861df946e880ee",
     "packages": [
+        {
+            "name": "aliyuncs/oss-sdk-php",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aliyun/aliyun-oss-php-sdk.git",
+                "reference": "f0413667d765855eb0aaa728b596801464ffdb06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aliyun/aliyun-oss-php-sdk/zipball/f0413667d765855eb0aaa728b596801464ffdb06",
+                "reference": "f0413667d765855eb0aaa728b596801464ffdb06",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OSS\\": "src/OSS"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aliyuncs",
+                    "homepage": "http://www.aliyun.com"
+                }
+            ],
+            "description": "Aliyun OSS SDK for PHP",
+            "homepage": "http://www.aliyun.com/product/oss/",
+            "support": {
+                "issues": "https://github.com/aliyun/aliyun-oss-php-sdk/issues",
+                "source": "https://github.com/aliyun/aliyun-oss-php-sdk/tree/v2.5.0"
+            },
+            "time": "2022-05-13T07:41:28+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",

@@ -124,7 +124,11 @@ class TechnicalOfficesController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
 
@@ -175,7 +179,11 @@ class TechnicalOfficesController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['professional'] = explode(',', $value['professional']);
             $value['img_url'] = $url;
@@ -204,7 +212,11 @@ class TechnicalOfficesController extends Controller
         $file = UploadFile::find($doctor['file_id']);
         $url = '';
         if ($file) {
-            $url = Storage::disk('public')->url($file['file_url']);
+            if ($file['storage'] == 0) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } elseif ($file['storage'] == 1) {
+                $url = $file['file_url'];
+            }
         }
         $doctor->img_url = $url;
 
@@ -274,7 +286,11 @@ class TechnicalOfficesController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
 
@@ -325,7 +341,11 @@ class TechnicalOfficesController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
         }
@@ -355,7 +375,11 @@ class TechnicalOfficesController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
 

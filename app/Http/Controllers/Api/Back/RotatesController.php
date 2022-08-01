@@ -20,7 +20,14 @@ class RotatesController extends Controller
 
         foreach ($rotates as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = $pre_path . Storage::url($file['file_url']);
+            
+            if ($file) {
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
+            }
 
             $img_arr[] = $url;
         }
@@ -41,7 +48,15 @@ class RotatesController extends Controller
 
         foreach ($rotates as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = $pre_path . Storage::url($file['file_url']);
+            
+            if ($file) {
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
+            }
+
             $value['url'] = $url;
         }
 

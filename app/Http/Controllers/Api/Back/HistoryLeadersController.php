@@ -18,7 +18,14 @@ class HistoryLeadersController extends Controller
 
         foreach ($history_leaders as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = Storage::disk('public')->url($file['file_url']);
+            
+            if ($file) {
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
+            }
 
             $img_arr[] = $url;
         }
@@ -37,7 +44,15 @@ class HistoryLeadersController extends Controller
 
         foreach ($history_leaders as $key => $value) {
             $file = UploadFile::find($value['file_id']);
-            $url = Storage::disk('public')->url($file['file_url']);
+
+            if ($file) {
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
+            }
+
             $value['url'] = $url;
         }
 
@@ -74,7 +89,13 @@ class HistoryLeadersController extends Controller
 
         $file = UploadFile::find($history_leader['file_id']);
 
-        $url = Storage::disk('public')->url($file['file_url']);
+        if ($file) {
+            if ($file['storage'] == 0) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } elseif ($file['storage'] == 1) {
+                $url = $file['file_url'];
+            }
+        }
 
         $history_leader->url = $url;
 

@@ -8,6 +8,8 @@ use App\Models\UploadFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use OSS\OssClient;
+use OSS\Core\OssException;
 
 class FilesController extends Controller
 {
@@ -43,9 +45,33 @@ class FilesController extends Controller
         //     $img->insert(public_path() . '/suiying.png', 'bottom-right');
         //     $img->save();
         // }
+        
+        // 存阿里oss
+        $accessKeyId = env('ACCESSKEYID', '');
+        $accessKeySecret = env('ACCESSKEYSECRET', '');
+        $endpoint = "https://oss-cn-shenzhen.aliyuncs.com";
+        $bucket= "ybsyoss";
+        $object = $basket . '/' . $file->getClientOriginalName();
+        $filePath = $file->path();
+
+        $path = '//oss.666120.cn/' . $object;
+
+        $options = array(
+            OssClient::OSS_HEADERS => array(
+                'x-oss-object-acl' => 'public-read',
+            ),
+        );
+
+        try{
+            $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+
+            $ossClient->uploadFile($bucket, $object, $filePath, $options);
+        } catch(OssException $e) {
+            throw new BaseException(['msg' => $e->getMessage()]);
+        }
 
         // 存储文件
-        $path = $file->storeAs($basket . '/' . date('Ym'), time() . '-' . $file->getClientOriginalName(), 'public');
+        // $path = $file->storeAs($basket . '/' . date('Ym'), time() . '-' . $file->getClientOriginalName(), 'public');
 
         // 写入数据库
         $insert_data = [
@@ -61,11 +87,13 @@ class FilesController extends Controller
 
         $res = UploadFile::create($insert_data);
 
-        $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
+        $res->src = $res->file_url;
 
-        $url = $pre_path . Storage::url($res['file_url']);
+        // $pre_path = $request->server('REQUEST_SCHEME') . '://' .$request->server('HTTP_HOST');
 
-        $res->src = $url;
+        // $url = $pre_path . Storage::url($res['file_url']);
+
+        // $res->src = $url;
 
         return responder()->success($res);
     }

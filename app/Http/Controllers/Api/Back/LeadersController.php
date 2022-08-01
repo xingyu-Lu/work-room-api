@@ -20,7 +20,11 @@ class LeadersController extends Controller
             $file = UploadFile::find($value['file_id']);
 
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             } else {
                 $url = '';
             }
@@ -44,7 +48,11 @@ class LeadersController extends Controller
             $file = UploadFile::find($value['file_id']);
 
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             } else {
                 $url = '';
             }
@@ -85,7 +93,13 @@ class LeadersController extends Controller
 
         $file = UploadFile::find($leader['file_id']);
 
-        $url = Storage::disk('public')->url($file['file_url']);
+        if ($file) {
+            if ($file['storage'] == 0) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } elseif ($file['storage'] == 1) {
+                $url = $file['file_url'];
+            }
+        }
 
         $leader->url = $url;
 

@@ -55,7 +55,11 @@ class TechnicalOfficeDoctorsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['url'] = $url;
         }
@@ -103,7 +107,11 @@ class TechnicalOfficeDoctorsController extends Controller
         $file = UploadFile::find($office_doctor['file_id']);
         $url = '';
         if ($file) {
-            $url = Storage::disk('public')->url($file['file_url']);
+            if ($file['storage'] == 0) {
+                $url = Storage::disk('public')->url($file['file_url']);
+            } elseif ($file['storage'] == 1) {
+                $url = $file['file_url'];
+            }
         }
         $office_doctor->url = $url;
 

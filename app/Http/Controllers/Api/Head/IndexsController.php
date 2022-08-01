@@ -40,7 +40,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['url'] = $url;
         }
@@ -74,7 +78,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
 
@@ -89,7 +97,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
             $value['title'] = mb_substr($value['title'], 0, 10) . '...';
@@ -101,7 +113,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
             $value['title'] = mb_substr($value['title'], 0, 10) . '...';
@@ -114,7 +130,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
             $value['title'] = mb_substr($value['title'], 0, 10) . '...';
@@ -128,7 +148,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
             $value['title'] = mb_substr($value['title'], 0, 25) . '...';
@@ -141,7 +165,11 @@ class IndexsController extends Controller
             $file = UploadFile::find($value['file_id']);
             $url = '';
             if ($file) {
-                $url = Storage::disk('public')->url($file['file_url']);
+                if ($file['storage'] == 0) {
+                    $url = Storage::disk('public')->url($file['file_url']);
+                } elseif ($file['storage'] == 1) {
+                    $url = $file['file_url'];
+                }
             }
             $value['img_url'] = $url;
             $value['title'] = mb_substr($value['title'], 0, 25) . '...';
